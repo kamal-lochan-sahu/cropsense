@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI crop Recommendation</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <div class="container">
         <h1>☘ cropsense</h1>
-        <p1>AI-powered Crop Recommendation System</p1>
+        <p>AI-powered Crop Recommendation System</p>
         <form action="/predict" method="post" id="cropForm" >
             <input type="number" name="nitrogen" placeholder="Nitrogen(N)" id="nitrogen" required>
             <input type="number" name="phosphorus" placeholder="Phosphorus(P)" id="phosphorus" required>
@@ -18,7 +19,6 @@
             <input type="number" name="PH" placeholder="PH Value" id="PH" required>
             <input type="number" name="rainfall" placeholder="rainfall(mm)" id="rainfall" required>
             <button type="submit">Get Recommendation</button>
-
         </form>
         <div id="result"></div>
     </div>
