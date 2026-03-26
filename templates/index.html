@@ -7,21 +7,72 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>☘ cropsense</h1>
+   <main>
+    <section class="container">
+        <header>
+             <h1>☘ cropsense</h1>
         <p>AI-powered Crop Recommendation System</p>
+        </header>
         <form action="/predict" method="post" id="cropForm" >
-            <input type="number" name="nitrogen" placeholder="Nitrogen(N)" id="nitrogen" required>
-            <input type="number" name="phosphorus" placeholder="Phosphorus(P)" id="phosphorus" required>
-            <input type="number" name="potassium"placeholder="Potassium(K)" id="potassium" required>
-            <input type="number" name="temperature" placeholder="Temperature(&deg;C)" id="temperature" required>
-            <input type="number" name="humidity" placeholder="Humidity(%)" id="humidity" required>
-            <input type="number" name="PH" placeholder="PH Value" id="PH" required>
-            <input type="number" name="rainfall" placeholder="rainfall(mm)" id="rainfall" required>
-            <button type="submit">Get Recommendation</button>
+            <input
+             type="number"
+              name="nitrogen" 
+              placeholder="Nitrogen(N)" 
+              id="nitrogen"
+               required>
+
+            <input 
+            type="number"
+             name="phosphorus"
+              placeholder="Phosphorus(P)"
+               id="phosphorus"
+                required>
+
+            <input
+            type="number"
+             name="potassium" 
+             placeholder="Potassium(K)"
+              id="potassium"
+               required>
+
+            <input 
+            type="number" 
+            name="temperature"
+             placeholder="Temperature(&deg;C)" 
+             id="temperature"
+              required>
+
+            <input 
+            type="number"
+             name="humidity"
+              placeholder="Humidity(%)" 
+              id="humidity" 
+              required>
+
+            <input
+             type="number"
+              name="pH" 
+              placeholder="pH Value"
+               id="pH"
+               step="0.1"
+               min="0"
+               max="14"
+                required>
+
+            <input 
+            type="number"
+             name="rainfall"
+              placeholder="rainfall(mm)"
+               id="rainfall"
+                required>
+
+            <button type="submit">
+                Get Recommendation
+            </button>
         </form>
         <div id="result"></div>
-    </div>
-    
+    </section>
+   </main>
+    <script src="../static/script.js"></script>
 </body>
 </html>
