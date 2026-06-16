@@ -1,7 +1,7 @@
 {
     "name": "CropSense - AI Crop Recommendation",
     "short_name": "CropSense",
-    "description": "AI-powered crop recommendation system",
+    "description": "AI-powered crop recommendation system supporting 20+ languages",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#f0f4f0",

@@ -1,4 +1,124 @@
+#!/usr/bin/env python3
+"""
+CropSense v2 Upgrade Script
+============================
+Kya karta hai yeh script:
+  1. manifest,json  →  manifest.json  (comma bug fix)
+  2. sw,js          →  sw.js          (comma bug fix)
+  3. Naya index.html — i18n + OG tags + language toggle
+  4. Naya style.css  — language toggle UI + responsive
+  5. Naya script.js  — i18n engine + IP detection + crop learning
+  6. og-image.png    — LinkedIn/Twitter preview (1200×630, Pillow se)
+  7. requirements.txt — Pillow add (OG image ke liye)
 
+Run karo:
+  cd ~/projects/cropsense
+  python3 upgrade_cropsense.py
+"""
+
+import os
+import shutil
+from pathlib import Path
+
+# ── Pillow check ──────────────────────────────────────────────────────────────
+try:
+    from PIL import Image, ImageDraw, ImageFont
+    PILLOW_OK = True
+except ImportError:
+    PILLOW_OK = False
+    print("⚠  Pillow nahi mila. OG image skip hogi.")
+    print("   Install karo: pip install Pillow")
+
+BASE = Path(__file__).parent          # ~/projects/cropsense
+STATIC   = BASE / "static"
+TEMPLATE = BASE / "templates"
+STATIC.mkdir(exist_ok=True)
+TEMPLATE.mkdir(exist_ok=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 1.  COMMA BUG FIX
+# ══════════════════════════════════════════════════════════════════════════════
+def fix_comma_bugs():
+    fixes = [
+        (STATIC / "manifest,json", STATIC / "manifest.json"),
+        (STATIC / "sw,js",         STATIC / "sw.js"),
+    ]
+    for old, new in fixes:
+        if old.exists():
+            shutil.move(str(old), str(new))
+            print(f"✅ Renamed: {old.name}  →  {new.name}")
+        elif new.exists():
+            print(f"ℹ  {new.name} already exists — skipping rename")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 2.  MANIFEST.JSON  (updated)
+# ══════════════════════════════════════════════════════════════════════════════
+MANIFEST = """{
+    "name": "CropSense - AI Crop Recommendation",
+    "short_name": "CropSense",
+    "description": "AI-powered crop recommendation system supporting 20+ languages",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f0f4f0",
+    "theme_color": "#2d6a4f",
+    "icons": [
+        {
+            "src": "/static/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}"""
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 3.  SERVICE WORKER  (sw.js)
+# ══════════════════════════════════════════════════════════════════════════════
+SW_JS = """// CropSense Service Worker v2
+const CACHE = 'cropsense-v2';
+const ASSETS = ['/', '/static/style.css', '/static/script.js',
+                '/static/icon-192.png', '/static/icon-512.png',
+                '/static/manifest.json'];
+
+self.addEventListener('install', e =>
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS))));
+
+self.addEventListener('activate', e =>
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))));
+
+self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    caches.match(e.request).then(cached => {
+      const net = fetch(e.request).then(res => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return res;
+      });
+      return cached || net;
+    })
+  );
+});"""
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 4.  TRANSLATIONS  (20 languages)
+# ══════════════════════════════════════════════════════════════════════════════
+# Har language ke liye keys:
+#   title, subtitle, nitrogen, phosphorus, potassium, temperature,
+#   humidity, ph, rainfall, btn, result_prefix, result_tip,
+#   learn_btn, learn_title, offline_msg
+#
+# Indian (10): hi, or, mr, bn, ta, te, kn, gu, pa, ml
+# World  (10): de, it, ja, zh, ru, fr, es, ar, pt, ko
+
+TRANSLATIONS_JS = r"""
 const TRANSLATIONS = {
   en: {
     title:"☘ CropSense", subtitle:"AI-powered Crop Recommendation",
@@ -268,7 +388,12 @@ const INDIA_STATE_LANG = {
   "Punjab":"pa",
   "Kerala":"ml"
 };
+"""
 
+# ══════════════════════════════════════════════════════════════════════════════
+# 5.  SCRIPT.JS  (i18n engine + crop learning)
+# ══════════════════════════════════════════════════════════════════════════════
+SCRIPT_JS = TRANSLATIONS_JS + r"""
 
 /* ── Language state ── */
 let currentLang = 'en';
@@ -501,3 +626,421 @@ window.addEventListener('DOMContentLoaded', async () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/static/sw.js').catch(() => {});
 }
+"""
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 6.  INDEX.HTML
+# ══════════════════════════════════════════════════════════════════════════════
+INDEX_HTML = """<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CropSense — AI Crop Recommendation</title>
+
+  <!-- ── Open Graph / LinkedIn / Twitter ── -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://cropsense-39bz.onrender.com/">
+  <meta property="og:title"       content="CropSense — AI Crop Recommendation">
+  <meta property="og:description" content="Enter your soil & climate data and get the perfect crop recommendation instantly. Supports 20+ languages. Free & open source.">
+  <meta property="og:image"       content="https://cropsense-39bz.onrender.com/static/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height"content="630">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="CropSense — AI Crop Recommendation">
+  <meta name="twitter:description"content="AI-powered crop recommendation in 20+ languages. Free tool for farmers worldwide.">
+  <meta name="twitter:image"      content="https://cropsense-39bz.onrender.com/static/og-image.png">
+
+  <!-- ── SEO ── -->
+  <meta name="description" content="AI-powered crop recommendation system. Enter soil NPK, pH, temperature and get instant crop suggestion. Supports Hindi, Odia, Marathi, Bengali, Tamil, Telugu, Kannada, Gujarati, Punjabi, Malayalam, German, Italian, Japanese, Chinese, Russian, French, Spanish, Arabic, Portuguese, Korean.">
+  <meta name="keywords"    content="crop recommendation, AI farming, soil analysis, NPK, precision agriculture, किसान, ଚାଷ">
+  <meta name="author"      content="Kamal Lochan Sahu">
+
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="manifest"   href="/static/manifest.json">
+  <meta name="theme-color" content="#2d6a4f">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+</head>
+<body>
+
+<!-- Offline banner -->
+<div id="offline-banner" style="display:none;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-size:.9rem;">
+  📴 <span id="offline-text">You are offline. Predictions need internet.</span>
+</div>
+
+<!-- Language toggle bar -->
+<div class="lang-bar">
+  <button class="lang-opt active" id="opt-en"     onclick="setToggle('en')">English</button>
+  <button class="lang-opt"        id="opt-auto"   onclick="setToggle('auto')">Auto</button>
+  <button class="lang-opt"        id="opt-choose" onclick="setToggle('choose')">Choose Language</button>
+  <select id="lang-select" style="display:none" class="lang-dropdown-select"></select>
+</div>
+
+<div id="lang-dropdown" style="display:none;text-align:center;padding:8px 0 0;">
+  <!-- select gets shown here via JS -->
+</div>
+
+<main>
+  <section class="container">
+    <header>
+      <h1>☘ CropSense</h1>
+      <p>AI-powered Crop Recommendation</p>
+    </header>
+
+    <form id="cropForm">
+      <input type="number" name="nitrogen"    placeholder="Nitrogen (N)"       id="nitrogen"    required>
+      <input type="number" name="phosphorus"  placeholder="Phosphorus (P)"     id="phosphorus"  required>
+      <input type="number" name="potassium"   placeholder="Potassium (K)"      id="potassium"   required>
+      <input type="number" name="temperature" placeholder="Temperature (°C)"   id="temperature" required>
+      <input type="number" name="humidity"    placeholder="Humidity (%)"       id="humidity"    required>
+      <input type="number" name="pH"          placeholder="pH Value"           id="pH"          step="0.1" min="0" max="14" required>
+      <input type="number" name="rainfall"    placeholder="Rainfall (mm)"      id="rainfall"    required>
+      <button type="submit" id="submitBtn">Get Recommendation</button>
+    </form>
+
+    <div id="result"      style="display:none"></div>
+    <div id="learn-panel" style="display:none" class="learn-panel"></div>
+
+    <footer>
+      <p id="credits" class="credits">Made with ☘ for farmers worldwide</p>
+    </footer>
+  </section>
+</main>
+
+<script src="/static/script.js"></script>
+</body>
+</html>"""
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 7.  STYLE.CSS
+# ══════════════════════════════════════════════════════════════════════════════
+STYLE_CSS = """/* ── Reset ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f4f0;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Language bar ── */
+.lang-bar {
+  width: 100%;
+  background: #2d6a4f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  flex-wrap: wrap;
+}
+.lang-opt {
+  background: transparent;
+  color: rgba(255,255,255,0.75);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: .82rem;
+  cursor: pointer;
+  transition: all .2s;
+  width: auto;
+  font-weight: 500;
+}
+.lang-opt:hover, .lang-opt.active {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border-color: rgba(255,255,255,0.7);
+}
+.lang-dropdown-select {
+  margin: 0 auto;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid #2d6a4f;
+  font-size: .95rem;
+  color: #333;
+  background: #fff;
+  cursor: pointer;
+  max-width: 300px;
+  width: 90%;
+}
+
+/* ── Main container ── */
+main { width:100%; display:flex; justify-content:center; padding: 24px 16px 40px; }
+
+.container {
+  background: #fff;
+  padding: 36px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+/* ── Header ── */
+header { text-align: center; margin-bottom: 28px; }
+h1     { color: #2d6a4f; font-size: 2rem; margin-bottom: 6px; }
+header p { color: #666; font-size: .95rem; }
+
+/* ── Inputs ── */
+input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  transition: border-color .25s;
+}
+input:focus { border-color: #2d6a4f; }
+
+/* ── Button ── */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: #2d6a4f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .25s;
+}
+button[type="submit"]:hover    { background: #1b4332; }
+button[type="submit"]:disabled { background: #74a98a; cursor: not-allowed; }
+
+/* ── Result ── */
+#result {
+  margin-top: 22px;
+  padding: 20px;
+  background: #d8f3dc;
+  border-radius: 10px;
+  text-align: center;
+}
+.result-crop { font-size: 1.15rem; font-weight: 700; color: #1b4332; margin-bottom: 6px; }
+.result-tip  { font-size: .85rem; color: #4a4a4a; margin-bottom: 12px; }
+.learn-btn {
+  display: inline-block;
+  width: auto;
+  padding: 8px 20px;
+  background: #2d6a4f;
+  color: #fff;
+  border-radius: 6px;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background .2s;
+}
+.learn-btn:hover { background: #1b4332; }
+
+/* ── Learn panel ── */
+.learn-panel {
+  margin-top: 18px;
+  padding: 20px;
+  background: #f7fdf9;
+  border: 1.5px solid #b7e4c7;
+  border-radius: 12px;
+}
+.learn-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.learn-emoji { font-size: 2.2rem; }
+.learn-header h2 { font-size: 1.05rem; color: #1b4332; margin-bottom: 4px; }
+.learn-sub { font-size: .82rem; color: #555; }
+.close-btn {
+  margin-left: auto; background: transparent; border: none;
+  font-size: 1.1rem; cursor: pointer; color: #888; width:auto; padding:4px 8px;
+}
+.learn-tip {
+  background: #e8f5e9;
+  border-left: 3px solid #2d6a4f;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: .9rem;
+  color: #2d6a4f;
+  margin-bottom: 14px;
+}
+.learn-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.learn-links a {
+  padding: 7px 14px;
+  background: #2d6a4f;
+  color: #fff;
+  border-radius: 6px;
+  font-size: .82rem;
+  text-decoration: none;
+  transition: background .2s;
+}
+.learn-links a:hover { background: #1b4332; }
+
+/* ── Footer ── */
+.credits { text-align:center; margin-top:24px; font-size:.82rem; color:#aaa; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .container { padding: 28px 18px; }
+  h1 { font-size: 1.6rem; }
+  .lang-opt { padding: 4px 10px; font-size: .78rem; }
+}
+
+/* ── RTL support (Arabic) ── */
+[dir="rtl"] input, [dir="rtl"] button { text-align: right; }
+[dir="rtl"] .learn-tip { border-left: none; border-right: 3px solid #2d6a4f; }
+[dir="rtl"] .learn-header { flex-direction: row-reverse; }
+"""
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 8.  OG IMAGE  (1200 × 630 via Pillow)
+# ══════════════════════════════════════════════════════════════════════════════
+def generate_og_image():
+    if not PILLOW_OK:
+        return
+    W, H = 1200, 630
+    img = Image.new("RGB", (W, H), "#0d2b1e")
+    d   = ImageDraw.Draw(img)
+
+    # Background gradient layers
+    for i in range(40):
+        green = 28 + i
+        d.rectangle([i*8, i*5, W - i*8, H - i*5], fill=(13, green, 25))
+
+    # Decorative circles top-right
+    for r in [300, 220, 140]:
+        d.ellipse([W - r, -r//2, W + r//2, r], outline="#1e4d38", width=2)
+
+    # Decorative circles bottom-left
+    for r in [250, 170]:
+        d.ellipse([-r//2, H - r, r, H + r//2], outline="#1e4d38", width=2)
+
+    # Top accent stripe
+    d.rectangle([60, 50, W - 60, 57], fill="#52b788")
+
+    try:
+        font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 82)
+        font_sub   = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 33)
+        font_tag   = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 21)
+        font_small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 19)
+    except Exception:
+        font_title = font_sub = font_tag = font_small = ImageFont.load_default()
+
+    # Main title
+    d.text((W//2, 185), "CropSense", font=font_title, fill="#d8f3dc", anchor="mm")
+
+    # AI badge pill (manual rounded rect — Pillow <9 compatible)
+    def pill(x1, y1, x2, y2, fill):
+        r = (y2 - y1) // 2
+        d.rectangle([x1+r, y1, x2-r, y2], fill=fill)
+        d.ellipse([x1, y1, x1+2*r, y2], fill=fill)
+        d.ellipse([x2-2*r, y1, x2, y2], fill=fill)
+
+    pill(W//2 - 215, 122, W//2 - 128, 150, "#2d6a4f")
+    d.text((W//2 - 172, 136), "☘  AI", font=font_tag, fill="#95d5b2", anchor="mm")
+
+    # Subtitle
+    d.text((W//2, 262), "AI-powered Crop Recommendation System", font=font_sub, fill="#95d5b2", anchor="mm")
+
+    # Divider
+    d.line([(200, 305), (W - 200, 305)], fill="#2d6a4f", width=1)
+
+    # 4 stat cards
+    stats = [("🌾", "22 Crops"), ("🌍", "20+ Languages"), ("🤖", "99.3% Acc."), ("📱", "PWA Ready")]
+    pw, ph = 208, 68
+    gap    = 20
+    sx     = (W - (len(stats) * pw + (len(stats)-1) * gap)) // 2
+    sy     = 325
+
+    for i, (icon, label) in enumerate(stats):
+        cx = sx + i * (pw + gap)
+        pill(cx, sy, cx + pw, sy + ph, "#1b4332")
+        # border lines
+        d.line([(cx+14, sy), (cx+pw-14, sy)], fill="#2d6a4f", width=1)
+        d.line([(cx+14, sy+ph), (cx+pw-14, sy+ph)], fill="#2d6a4f", width=1)
+        d.text((cx + 36, sy + ph//2), icon, font=font_sub, fill="#d8f3dc", anchor="mm")
+        d.text((cx + pw//2 + 18, sy + ph//2), label, font=font_tag, fill="#95d5b2", anchor="mm")
+
+    # Built by
+    d.text((W//2, 450), "Built by Kamal Lochan Sahu", font=font_tag, fill="#52b788", anchor="mm")
+
+    # Language row
+    d.text((W//2, 492),
+           "HI  OR  MR  BN  TA  TE  KN  GU  PA  ML  DE  IT  JA  ZH  RU  FR  ES  AR  PT  KO",
+           font=font_small, fill="#2d6a4f", anchor="mm")
+
+    # Bottom bar
+    d.rectangle([0, H - 56, W, H], fill="#061410")
+    d.text((W//2, H - 28),
+           "cropsense-39bz.onrender.com  •  Free & Open Source  •  github.com/kamal-lochan-sahu",
+           font=font_small, fill="#52b788", anchor="mm")
+
+    out = STATIC / "og-image.png"
+    img.save(out, "PNG", optimize=True)
+    print(f"✅ OG image generated: {out}  ({W}×{H}px)")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 9.  REQUIREMENTS.TXT  (add Pillow if missing)
+# ══════════════════════════════════════════════════════════════════════════════
+def update_requirements():
+    req_path = BASE / "requirements.txt"
+    content  = req_path.read_text(encoding="utf-8", errors="ignore") if req_path.exists() else ""
+    if "Pillow" not in content and "pillow" not in content:
+        with open(req_path, "a") as f:
+            f.write("\nPillow>=10.0.0\n")
+        print("✅ requirements.txt — Pillow added")
+    else:
+        print("ℹ  requirements.txt — Pillow already present")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MAIN
+# ══════════════════════════════════════════════════════════════════════════════
+def write(path: Path, content: str, label: str):
+    path.write_text(content, encoding="utf-8")
+    print(f"✅ Written: {label}")
+
+def main():
+    print("\n🌱 CropSense v2 Upgrade Starting...\n")
+
+    fix_comma_bugs()
+    write(STATIC   / "manifest.json", MANIFEST,   "static/manifest.json")
+    write(STATIC   / "sw.js",         SW_JS,       "static/sw.js")
+    write(STATIC   / "script.js",     SCRIPT_JS,   "static/script.js")
+    write(STATIC   / "style.css",     STYLE_CSS,   "static/style.css")
+    write(TEMPLATE / "index.html",    INDEX_HTML,  "templates/index.html")
+    generate_og_image()
+    update_requirements()
+
+    print("""
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  CropSense v2 Upgrade Complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Files updated:
+  templates/index.html   ← OG tags + i18n toggle + learn panel
+  static/style.css       ← Language bar + learn panel styles
+  static/script.js       ← 20-language i18n engine + IP detection
+  static/manifest.json   ← Fixed (was manifest,json)
+  static/sw.js           ← Fixed + proper offline caching
+  static/og-image.png    ← LinkedIn/Twitter preview (1200×630)
+
+Next steps:
+  1. python3 app.py          → test locally at http://localhost:5000
+  2. git add -A
+  3. git commit -m "feat: i18n 20 langs + OG image + PWA fix + crop learning"
+  4. git push origin main    → Render auto-deploy starts
+
+LinkedIn pe share karte waqt:
+  URL paste karo → preview automatically aayega og-image se ☘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+""")
+
+if __name__ == "__main__":
+    main()
