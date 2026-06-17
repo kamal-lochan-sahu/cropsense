@@ -54,47 +54,16 @@
       <p>AI-powered Crop Recommendation</p>
     </header>
 
-    <div class="mode-tabs">
-      <button class="mode-tab active" id="mode-manual" onclick="setInputMode('manual')">✍️ Manual</button>
-      <button class="mode-tab"        id="mode-report" onclick="setInputMode('report')">📄 Soil Report</button>
-      <button class="mode-tab"        id="mode-sensor" onclick="setInputMode('sensor')">📡 Live Sensor</button>
-    </div>
-
-    <div id="mode-panel-manual" class="mode-panel" style="display:block">
-      <form id="cropForm">
-        <input type="number" name="nitrogen"    placeholder="Nitrogen (N)"       id="nitrogen"    required>
-        <input type="number" name="phosphorus"  placeholder="Phosphorus (P)"     id="phosphorus"  required>
-        <input type="number" name="potassium"   placeholder="Potassium (K)"      id="potassium"   required>
-        <input type="number" name="temperature" placeholder="Temperature (°C)"   id="temperature" required>
-        <input type="number" name="humidity"    placeholder="Humidity (%)"       id="humidity"    required>
-        <input type="number" name="pH"          placeholder="pH Value"           id="pH"          step="0.1" min="0" max="14" required>
-        <input type="number" name="rainfall"    placeholder="Rainfall (mm)"      id="rainfall"    required>
-        <button type="submit" id="submitBtn">Get Recommendation</button>
-      </form>
-    </div>
-
-    <div id="mode-panel-report" class="mode-panel">
-      <div class="report-upload">
-        <label for="soil-report-file">📄 Upload Soil Test Report (PDF/Image)</label>
-        <input type="file" id="soil-report-file" accept=".pdf,.jpg,.jpeg,.png">
-        <span id="report-filename"></span>
-        <div id="report-note">
-          🚧 Soil report auto-extraction coming soon. For now, please read the NPK and pH values from your report and enter them manually in the "Manual" tab.
-        </div>
-      </div>
-    </div>
-
-    <div id="mode-panel-sensor" class="mode-panel">
-      <div class="sensor-box">
-        <p class="sensor-note">📡 Demo mode — simulates live IoT sensor readings. Real hardware integration coming soon.</p>
-        <div id="sensor-readout"></div>
-        <div class="sensor-btn-row">
-          <button class="btn-start" onclick="startSensorDemo()" type="button">▶ Start Live Feed</button>
-          <button class="btn-use"   onclick="useSensorReading()" type="button">✓ Use This Reading</button>
-        </div>
-        <p class="sensor-disclaimer">Connect an ESP32 + soil sensor kit for real data (guide coming soon)</p>
-      </div>
-    </div>
+    <form id="cropForm">
+      <input type="number" name="nitrogen"    placeholder="Nitrogen (N)"       id="nitrogen"    required>
+      <input type="number" name="phosphorus"  placeholder="Phosphorus (P)"     id="phosphorus"  required>
+      <input type="number" name="potassium"   placeholder="Potassium (K)"      id="potassium"   required>
+      <input type="number" name="temperature" placeholder="Temperature (°C)"   id="temperature" required>
+      <input type="number" name="humidity"    placeholder="Humidity (%)"       id="humidity"    required>
+      <input type="number" name="pH"          placeholder="pH Value"           id="pH"          step="0.1" min="0" max="14" required>
+      <input type="number" name="rainfall"    placeholder="Rainfall (mm)"      id="rainfall"    required>
+      <button type="submit" id="submitBtn">Get Recommendation</button>
+    </form>
 
     <div id="result"      style="display:none"></div>
     <div id="learn-panel" style="display:none" class="learn-panel"></div>
