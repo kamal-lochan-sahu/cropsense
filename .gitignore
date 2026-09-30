@@ -1,10 +1,22 @@
-venv/
-__pycache__/
-*.pyc
+# Environments and secrets
 .env
-*.log
-.DS_Store
-.env
-*.bak
-
 .venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# OS / editor / misc
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.bak
