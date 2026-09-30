@@ -1,0 +1,6 @@
+-r requirements.txt
+
+# Tooling (tests, lint) and model training
+pandas==3.0.2
+pytest>=8,<10
+ruff>=0.6
