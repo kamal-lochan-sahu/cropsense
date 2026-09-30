@@ -19,7 +19,8 @@ print("✅ Model loaded!")
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+# Groq retires models often (llama-3.3-70b-versatile shut down 2026-08-16); override via env
+GROQ_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 
 # Simple in-memory cache: { "crop_lang": "guide text" }
 # Restart hone par clear ho jata hai — production mein Redis use kar sakte ho
@@ -113,8 +114,9 @@ Keep each field to 1-2 short sentences. Write everything in {lang_name}, includi
                 "model": GROQ_MODEL,
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.4,
-                "max_tokens": 600,
-                "response_format": {"type": "json_object"}
+                "max_tokens": 1500,
+                "response_format": {"type": "json_object"},
+                **({"reasoning_effort": "low"} if GROQ_MODEL.startswith("openai/gpt-oss") else {})
             },
             timeout=20
         )
