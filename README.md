@@ -1,53 +1,84 @@
-# 🌱 CropSense — AI Crop Recommendation System
+# CropSense
 
-An AI-powered web application that recommends the best crop to grow based on soil and climate data.
+AI-assisted crop recommendation for farmers. Enter soil nutrients (N, P, K),
+pH and local climate, and get the best-suited crop plus a growing guide in your
+own language.
 
-##  Live 
- [https://cropsense-39bz.onrender.com](https://cropsense-39bz.onrender.com)
+**Live demo:** https://cropsense-39bz.onrender.com
 
-## 🧠 How It Works
-1. User enters soil data — Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, Rainfall
-2. Flask backend receives the data
-3. Random Forest ML model predicts the best crop
-4. Result is displayed instantly
+## Features
 
-## 🛠️ Tech Stack
-| Layer | Technology |
-|-------|-----------|
-| Frontend | HTML, CSS, JavaScript |
-| Backend | Python, Flask |
-| ML Model | Scikit-learn, Random Forest |
-| Data | Pandas, NumPy |
-| Deployment | Render |
+- Crop recommendation from 7 inputs (N, P, K, temperature, humidity, pH, rainfall), 22 crops
+- Growing guides (season, soil, water, fertilizer, pests, harvest, tip) in 20+ languages
+- Multilingual UI with automatic language detection and RTL support (Arabic)
+- Installable PWA shell with an offline banner
+- Demo-only for now: **Soil Report upload** and **Live Sensor** tabs are placeholders
 
-## 📊 Model Performance
-- Algorithm: Random Forest Classifier
-- Dataset: 2200 soil samples, 22 crop types
-- Accuracy: **99.32%**
+## Model
 
-## 📁 Project Structure
-cropsense/
-├── app.py
-├── train_model.py
-├── Procfile
-├── requirements.txt
-├── model/
-│   ├── Crop_recommendation.csv
-│   └── model.pkl
-├── static/
-│   ├── style.css
-│   └── script.js
-└── templates/
-└── index.html
-## ⚙️ Run Locally
-```bash
+Random Forest (100 trees, scikit-learn) trained on the public Crop Recommendation
+dataset: 2,200 samples, 22 crops, 100 samples per crop.
+
+| Metric | Result |
+| --- | --- |
+| Hold-out accuracy (80/20 split, seed 42) | 99.32% |
+| 5-fold stratified cross-validation | 99.5% +/- 0.22 |
+
+The dataset is small, clean and perfectly balanced, so real-field accuracy will be
+lower. Treat results as a decision aid, not as agronomic advice; confirm with your
+local agriculture office.
+
+## Quick start
+
+~~~bash
 git clone https://github.com/kamal-lochan-sahu/cropsense.git
 cd cropsense
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python train_model.py
-python app.py
-👨‍💻 Author
-Kamal Lochan Sahu
-GitHub: @kamal-lochan-sahu
-LinkedIn: kamal-lochan-sahu
----
+cp .env.example .env        # then add your GROQ_API_KEY
+python app.py               # http://127.0.0.1:5000
+~~~
+
+To retrain the model: `python train_model.py`
+
+## Configuration
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `GROQ_API_KEY` | For growing guides | Free key from https://console.groq.com |
+| `GROQ_MODEL` | No | Defaults to `openai/gpt-oss-120b` |
+
+## Project structure
+
+~~~text
+cropsense/
+├── app.py              Flask app (routes, model loading, guide endpoint)
+├── train_model.py      Model training script
+├── model/              Dataset and trained model
+├── static/             CSS, JS, PWA manifest, service worker, icons
+├── templates/          HTML templates
+├── requirements.txt
+└── Procfile
+~~~
+
+## Deployment
+
+Deployed on Render with `gunicorn app:app`. Set `GROQ_API_KEY` as an environment
+variable in the Render dashboard.
+
+## Roadmap
+
+- [ ] Input validation and hardened API responses
+- [ ] Automated tests and CI
+- [ ] Curated, reviewed growing guides (no runtime LLM dependency)
+- [ ] Top-3 recommendations with confidence and "why this crop"
+- [ ] Weather auto-fill, fertilizer advice, offline predictions
+- [ ] Working soil-report reader and real sensor integration
+
+## License
+
+MIT, see [LICENSE](LICENSE).
+
+## Author
+
+Kamal Lochan Sahu, [@kamal-lochan-sahu](https://github.com/kamal-lochan-sahu)
