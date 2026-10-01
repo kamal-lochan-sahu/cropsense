@@ -346,3 +346,98 @@ button[type="submit"]:disabled { background: #74a98a; cursor: not-allowed; }
   color: #95d5b2;
   margin-top: 8px;
 }
+
+
+/* ══════════ v2: accessibility, states and new result UI ══════════ */
+[hidden] { display: none !important; }
+
+.offline-banner {
+  width: 100%;
+  background: #e74c3c;
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  font-size: .9rem;
+}
+.lang-dropdown { text-align: center; padding: 8px 0 0; }
+
+.mode-panel.active { display: block; }
+
+/* Form fields with visible labels */
+.field { margin-bottom: 14px; }
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #1b4332;
+}
+.field input { margin-bottom: 0; }
+.field input[aria-invalid="true"] { border-color: #c0392b; }
+.field-error { display: block; margin-top: 4px; font-size: .8rem; color: #c0392b; }
+
+button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 3px solid #95d5b2;
+  outline-offset: 2px;
+}
+
+/* Result */
+.result-confidence { font-size: .9rem; color: #2d6a4f; margin-bottom: 8px; }
+.result-warning {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: #fff3cd;
+  border-left: 3px solid #ffc107;
+  border-radius: 6px;
+  font-size: .82rem;
+  color: #7a5c00;
+  text-align: start;
+}
+.result-warning ul { margin: 6px 0 0 18px; }
+#result.status-error { background: #fdecea; color: #c0392b; }
+#result.status-info { background: #e8f5e9; color: #2d6a4f; }
+.status-text { font-size: .95rem; }
+
+.top-heading {
+  margin: 16px 0 6px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  text-align: start;
+}
+.top-list { list-style: none; }
+.top-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.crop-chip {
+  flex-shrink: 0;
+  width: 7.5rem;
+  padding: 4px 0;
+  background: transparent;
+  border: none;
+  text-align: start;
+  font-size: .88rem;
+  font-weight: 600;
+  color: #1b4332;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.bar { flex: 1; height: 8px; background: #b7e4c7; border-radius: 4px; overflow: hidden; }
+.bar-fill { display: block; height: 100%; background: #2d6a4f; border-radius: 4px; }
+.pct { width: 3rem; text-align: end; font-size: .82rem; color: #444; font-variant-numeric: tabular-nums; }
+
+.sensor-badge {
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background: #fff3cd;
+  border-radius: 6px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #7a5c00;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2.4s; }
+  html { scroll-behavior: auto; }
+}

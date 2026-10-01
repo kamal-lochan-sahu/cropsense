@@ -5,75 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CropSense — AI Crop Recommendation</title>
 
-  <!-- ── Open Graph / LinkedIn / Twitter ── -->
-  <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://cropsense-39bz.onrender.com/">
-  <meta property="og:title"       content="CropSense — AI Crop Recommendation">
-  <meta property="og:description" content="Enter your soil & climate data and get the perfect crop recommendation instantly. Supports 20+ languages. Free & open source.">
-  <meta property="og:image"       content="https://cropsense-39bz.onrender.com/static/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height"content="630">
-  <meta name="twitter:card"       content="summary_large_image">
-  <meta name="twitter:title"      content="CropSense — AI Crop Recommendation">
-  <meta name="twitter:description"content="AI-powered crop recommendation in 20+ languages. Free tool for farmers worldwide.">
-  <meta name="twitter:image"      content="https://cropsense-39bz.onrender.com/static/og-image.png">
+  <!-- Open Graph / LinkedIn / Twitter -->
+  <meta property="og:type"         content="website">
+  <meta property="og:url"          content="https://cropsense-39bz.onrender.com/">
+  <meta property="og:title"        content="CropSense — AI Crop Recommendation">
+  <meta property="og:description"  content="Enter your soil and climate data and get a crop recommendation instantly. 21 languages. Free and open source.">
+  <meta property="og:image"        content="https://cropsense-39bz.onrender.com/static/img/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="CropSense — AI Crop Recommendation">
+  <meta name="twitter:description" content="AI-assisted crop recommendation in 21 languages. Free tool for farmers worldwide.">
+  <meta name="twitter:image"       content="https://cropsense-39bz.onrender.com/static/img/og-image.png">
 
-  <!-- ── SEO ── -->
-  <meta name="description" content="AI-powered crop recommendation system. Enter soil NPK, pH, temperature and get instant crop suggestion. Supports Hindi, Odia, Marathi, Bengali, Tamil, Telugu, Kannada, Gujarati, Punjabi, Malayalam, German, Italian, Japanese, Chinese, Russian, French, Spanish, Arabic, Portuguese, Korean.">
+  <!-- SEO -->
+  <meta name="description" content="AI-assisted crop recommendation. Enter soil NPK, pH, temperature, humidity and rainfall to get crop suggestions with growing guides in Hindi, Odia, Marathi, Bengali, Tamil, Telugu, Kannada, Gujarati, Punjabi, Malayalam, German, Italian, Japanese, Chinese, Russian, French, Spanish, Arabic, Portuguese and Korean.">
   <meta name="keywords"    content="crop recommendation, AI farming, soil analysis, NPK, precision agriculture, किसान, ଚାଷ">
   <meta name="author"      content="Kamal Lochan Sahu">
 
-  <link rel="stylesheet" href="/static/style.css">
-  <link rel="manifest"   href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/css/style.css?v={{ asset_version }}">
+  <link rel="manifest" href="/static/manifest.json">
   <meta name="theme-color" content="#2d6a4f">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <link rel="icon" href="/static/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
 </head>
 <body>
 
-<!-- Offline banner -->
-<div id="offline-banner" style="display:none;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-size:.9rem;">
-  📴 <span id="offline-text">You are offline. Predictions need internet.</span>
+<div id="offline-banner" class="offline-banner" role="status" hidden>
+  📴 <span id="offline-text" data-i18n="offline_msg">You are offline. Predictions need internet.</span>
 </div>
 
-<!-- Language toggle bar -->
-<div class="lang-bar">
-  <button class="lang-opt active" id="opt-en"     onclick="setToggle('en')">English</button>
-  <button class="lang-opt"        id="opt-auto"   onclick="setToggle('auto')">Auto</button>
-  <button class="lang-opt"        id="opt-choose" onclick="setToggle('choose')">Choose Language</button>
-  <select id="lang-select" style="display:none" class="lang-dropdown-select"></select>
+<div class="lang-bar" role="group" aria-label="Language">
+  <button type="button" class="lang-opt active" data-lang-mode="en"     data-i18n="toggle_en"     aria-pressed="true">English</button>
+  <button type="button" class="lang-opt"        data-lang-mode="auto"   data-i18n="toggle_auto"   aria-pressed="false">Auto</button>
+  <button type="button" class="lang-opt"        data-lang-mode="choose" data-i18n="toggle_choose" aria-pressed="false">Choose Language</button>
 </div>
 
-<div id="lang-dropdown" style="display:none;text-align:center;padding:8px 0 0;">
-  <!-- select gets shown here via JS -->
+<div id="lang-dropdown" class="lang-dropdown" hidden>
+  <select id="lang-select" class="lang-dropdown-select" aria-label="Choose language" data-i18n-aria="lang_select_label"></select>
 </div>
 
 <main>
   <section class="container">
     <header>
-      <h1>☘ CropSense</h1>
-      <p>AI-powered Crop Recommendation</p>
+      <h1 data-i18n="title">☘ CropSense</h1>
+      <p data-i18n="subtitle">AI-powered Crop Recommendation</p>
     </header>
 
-    <div class="mode-tabs">
-      <button class="mode-tab active" id="mode-manual" onclick="setInputMode('manual')">✍️ Manual</button>
-      <button class="mode-tab"        id="mode-report" onclick="setInputMode('report')">📄 Soil Report</button>
-      <button class="mode-tab"        id="mode-sensor" onclick="setInputMode('sensor')">📡 Live Sensor</button>
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" id="mode-manual" role="tab" aria-selected="true"  aria-controls="mode-panel-manual" data-mode="manual" data-i18n="tab_manual">✍️ Manual</button>
+      <button type="button" class="mode-tab"        id="mode-report" role="tab" aria-selected="false" aria-controls="mode-panel-report" data-mode="report" data-i18n="tab_report">📄 Soil Report</button>
+      <button type="button" class="mode-tab"        id="mode-sensor" role="tab" aria-selected="false" aria-controls="mode-panel-sensor" data-mode="sensor" data-i18n="tab_sensor">📡 Live Sensor</button>
     </div>
 
-    <div id="mode-panel-manual" class="mode-panel" style="display:block">
+    <div id="mode-panel-manual" class="mode-panel active" role="tabpanel" aria-labelledby="mode-manual">
       <form id="cropForm">
-        <input type="number" name="nitrogen"    placeholder="Nitrogen (N)"       id="nitrogen"    required>
-        <input type="number" name="phosphorus"  placeholder="Phosphorus (P)"     id="phosphorus"  required>
-        <input type="number" name="potassium"   placeholder="Potassium (K)"      id="potassium"   required>
-        <input type="number" name="temperature" placeholder="Temperature (°C)"   id="temperature" required>
-        <input type="number" name="humidity"    placeholder="Humidity (%)"       id="humidity"    required>
-        <input type="number" name="pH"          placeholder="pH Value"           id="pH"          step="0.1" min="0" max="14" required>
-        <input type="number" name="rainfall"    placeholder="Rainfall (mm)"      id="rainfall"    required>
-        <button type="submit" id="submitBtn">Get Recommendation</button>
+        <div class="field">
+          <label for="nitrogen" data-i18n="nitrogen">Nitrogen (N)</label>
+          <input type="number" id="nitrogen" name="nitrogen" inputmode="decimal" step="any" min="0" max="300" placeholder="90" autocomplete="off" required aria-describedby="err-nitrogen">
+          <span class="field-error" id="err-nitrogen" role="alert" hidden></span>
+        </div>
+        <div class="field">
+          <label for="phosphorus" data-i18n="phosphorus">Phosphorus (P)</label>
+          <input type="number" id="phosphorus" name="phosphorus" inputmode="decimal" step="any" min="0" max="300" placeholder="42" autocomplete="off" required aria-describedby="err-phosphorus">
+          <span class="field-error" id="err-phosphorus" role="alert" hidden></span>
+        </div>
+        <div class="field">
+          <label for="potassium" data-i18n="potassium">Potassium (K)</label>
+          <input type="number" id="potassium" name="potassium" inputmode="decimal" step="any" min="0" max="500" placeholder="43" autocomplete="off" required aria-describedby="err-potassium">
+          <span class="field-error" id="err-potassium" role="alert" hidden></span>
+        </div>
+        <div class="field">
+          <label for="temperature" data-i18n="temperature">Temperature (°C)</label>
+          <input type="number" id="temperature" name="temperature" inputmode="decimal" step="any" min="-20" max="60" placeholder="20.8" autocomplete="off" required aria-describedby="err-temperature">
+          <span class="field-error" id="err-temperature" role="alert" hidden></span>
+        </div>
+        <div class="field">
+          <label for="humidity" data-i18n="humidity">Humidity (%)</label>
+          <input type="number" id="humidity" name="humidity" inputmode="decimal" step="any" min="0" max="100" placeholder="82" autocomplete="off" required aria-describedby="err-humidity">
+          <span class="field-error" id="err-humidity" role="alert" hidden></span>
+        </div>
+        <div class="field">
+          <label for="pH" data-i18n="ph">pH Value</label>
+          <input type="number" id="pH" name="pH" inputmode="decimal" step="any" min="0" max="14" placeholder="6.5" autocomplete="off" required aria-describedby="err-pH">
+          <span class="field-error" id="err-pH" role="alert" hidden></span>
+        </div>
+        <div class="field">
+          <label for="rainfall" data-i18n="rainfall">Rainfall (mm)</label>
+          <input type="number" id="rainfall" name="rainfall" inputmode="decimal" step="any" min="0" max="5000" placeholder="200" autocomplete="off" required aria-describedby="err-rainfall">
+          <span class="field-error" id="err-rainfall" role="alert" hidden></span>
+        </div>
+        <button type="submit" id="submitBtn" data-i18n="btn">Get Recommendation</button>
       </form>
     </div>
 
-    <div id="mode-panel-report" class="mode-panel">
+    <div id="mode-panel-report" class="mode-panel" role="tabpanel" aria-labelledby="mode-report">
       <div class="report-upload">
         <label for="soil-report-file">📄 Upload Soil Test Report (PDF/Image)</label>
         <input type="file" id="soil-report-file" accept=".pdf,.jpg,.jpeg,.png">
@@ -84,27 +111,29 @@
       </div>
     </div>
 
-    <div id="mode-panel-sensor" class="mode-panel">
+    <div id="mode-panel-sensor" class="mode-panel" role="tabpanel" aria-labelledby="mode-sensor">
       <div class="sensor-box">
-        <p class="sensor-note">📡 Demo mode — simulates live IoT sensor readings. Real hardware integration coming soon.</p>
+        <p class="sensor-badge" data-i18n="sensor_demo_badge">Demo data, not real sensor readings</p>
+        <p class="sensor-note">📡 Demo mode: simulates live IoT sensor readings. Real hardware integration coming soon.</p>
         <div id="sensor-readout"></div>
         <div class="sensor-btn-row">
-          <button class="btn-start" onclick="startSensorDemo()" type="button">▶ Start Live Feed</button>
-          <button class="btn-use"   onclick="useSensorReading()" type="button">✓ Use This Reading</button>
+          <button type="button" id="sensor-start" class="btn-start">▶ Start Live Feed</button>
+          <button type="button" id="sensor-use" class="btn-use">✓ Use This Reading</button>
         </div>
         <p class="sensor-disclaimer">Connect an ESP32 + soil sensor kit for real data (guide coming soon)</p>
       </div>
     </div>
 
-    <div id="result"      style="display:none"></div>
-    <div id="learn-panel" style="display:none" class="learn-panel"></div>
+    <div id="result" class="result" aria-live="polite" hidden></div>
+    <div id="learn-panel" class="learn-panel" hidden></div>
 
     <footer>
-      <p id="credits" class="credits">Made with ☘ for farmers worldwide</p>
+      <p id="credits" class="credits" data-i18n="credits">Made with ☘ for farmers worldwide</p>
     </footer>
   </section>
 </main>
 
-<script src="/static/script.js"></script>
+<script src="/static/js/translations.js?v={{ asset_version }}" defer></script>
+<script src="/static/js/app.js?v={{ asset_version }}" defer></script>
 </body>
 </html>
