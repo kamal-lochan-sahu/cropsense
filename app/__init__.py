@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import logging
+from pathlib import Path
 from typing import Any
 
 from flask import Flask, request
@@ -33,10 +35,30 @@ def create_app(test_config: dict[str, Any] | None = None) -> Flask:
         allowed_crops=predictor.classes,
     )
 
+    app.config.setdefault("ASSET_VERSION", _asset_version(app))
+
+    @app.context_processor
+    def inject_asset_version():
+        return {"asset_version": app.config["ASSET_VERSION"]}
+
     app.register_blueprint(bp)
     _register_error_handlers(app)
     _register_security_headers(app)
     return app
+
+
+def _asset_version(app: Flask) -> str:
+    """Short hash of the front-end files; changes whenever they do, busting caches."""
+    root = Path(app.root_path)
+    files = sorted(
+        [*(root / "static" / "css").glob("*.css"), *(root / "static" / "js").glob("*.js")]
+        + [root / "static" / "manifest.json", root / "templates" / "sw.js"]
+    )
+    digest = hashlib.sha256()
+    for path in files:
+        digest.update(path.name.encode())
+        digest.update(path.read_bytes())
+    return digest.hexdigest()[:10]
 
 
 def _register_error_handlers(app: Flask) -> None:
@@ -55,15 +77,34 @@ def _register_error_handlers(app: Flask) -> None:
         return InternalServerError()
 
 
+CONTENT_SECURITY_POLICY = "; ".join(
+    [
+        "default-src 'self'",
+        "script-src 'self'",
+        "style-src 'self'",
+        "img-src 'self' data:",
+        "connect-src 'self' https://ipapi.co",
+        "manifest-src 'self'",
+        "worker-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'none'",
+    ]
+)
+
+
 def _register_security_headers(app: Flask) -> None:
     @app.after_request
     def add_headers(response):
-        response.headers.setdefault("X-Content-Type-Options", "nosniff")
-        response.headers.setdefault("X-Frame-Options", "DENY")
-        response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
-        response.headers.setdefault(
-            "Permissions-Policy", "camera=(), microphone=(), geolocation=(self)"
-        )
+        headers = response.headers
+        headers.setdefault("X-Content-Type-Options", "nosniff")
+        headers.setdefault("X-Frame-Options", "DENY")
+        headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=(self)")
+        headers.setdefault("Content-Security-Policy", CONTENT_SECURITY_POLICY)
+        if request.path in API_PATHS:
+            headers.setdefault("Cache-Control", "no-store")
         return response
 
 

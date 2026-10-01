@@ -2,7 +2,15 @@
 
 from __future__ import annotations
 
-from flask import Blueprint, current_app, jsonify, render_template, request
+from flask import (
+    Blueprint,
+    current_app,
+    jsonify,
+    make_response,
+    render_template,
+    request,
+    send_from_directory,
+)
 
 from .services.guides import GuideError
 from .validation import ValidationError, parse_features
@@ -18,7 +26,25 @@ def _error(message: str, status: int, **extra):
 
 @bp.get("/")
 def home():
-    return render_template("index.html")
+    response = make_response(render_template("index.html"))
+    response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
+@bp.get("/sw.js")
+def service_worker():
+    # Served from the site root so the worker's scope covers the whole app.
+    response = make_response(render_template("sw.js"))
+    response.mimetype = "application/javascript"
+    response.headers["Cache-Control"] = "no-cache"
+    response.headers["Service-Worker-Allowed"] = "/"
+    return response
+
+
+@bp.get("/favicon.ico")
+def favicon():
+    icons = current_app.static_folder + "/icons"
+    return send_from_directory(icons, "favicon-32.png", mimetype="image/png")
 
 
 @bp.get("/health")

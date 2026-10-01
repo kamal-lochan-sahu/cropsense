@@ -31,3 +31,6 @@ class Config:
 
     # API bodies are tiny; reject anything bigger.
     MAX_CONTENT_LENGTH = 16 * 1024
+
+    # Static files are versioned through ?v=<asset hash>, so a short cache is safe.
+    SEND_FILE_MAX_AGE_DEFAULT = 3600
