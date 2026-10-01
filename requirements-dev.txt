@@ -2,5 +2,6 @@
 
 # Tooling (tests, lint) and model training
 pandas==3.0.2
+Pillow>=10,<13
 pytest>=8,<10
 ruff>=0.6
