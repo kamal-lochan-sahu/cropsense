@@ -1,21 +1,17 @@
 {
-    "name": "CropSense - AI Crop Recommendation",
-    "short_name": "CropSense",
-    "description": "AI-powered crop recommendation system supporting 20+ languages",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#f0f4f0",
-    "theme_color": "#2d6a4f",
-    "icons": [
-        {
-            "src": "/static/icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/static/icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
+  "name": "CropSense - AI Crop Recommendation",
+  "short_name": "CropSense",
+  "description": "AI-assisted crop recommendation in 21 languages",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f0f4f0",
+  "theme_color": "#2d6a4f",
+  "categories": ["agriculture", "productivity"],
+  "icons": [
+    { "src": "/static/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/static/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/static/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }
