@@ -11,10 +11,12 @@ own language.
 ## Features
 
 - Crop recommendation from 7 inputs (N, P, K, temperature, humidity, pH, rainfall), 22 crops
-- Top-3 suggestions with confidence, and a warning when inputs fall outside the range the model was trained on
+- Top-3 suggestions with confidence bars, and a warning when inputs fall outside the range the model was trained on
+- Accessible form: visible labels, decimal input, inline per-field errors, clear error states
 - Growing guides (season, soil, water, fertilizer, pests, harvest, tip) in 21 languages
 - Multilingual UI with automatic language detection and RTL support (Arabic)
-- Installable PWA shell with an offline banner
+- Installable PWA: root-scope service worker with a versioned cache (no stale files after a deploy), real icons
+- Strict Content-Security-Policy; server and LLM text is never parsed as HTML
 - Demo-only for now: **Soil Report upload** and **Live Sensor** tabs are placeholders
 
 ## Model
@@ -85,18 +87,25 @@ Only the 22 known crops and the supported language codes are accepted.
 ~~~text
 cropsense/
 ├── app/
-│   ├── __init__.py        App factory, error handlers, security headers
+│   ├── __init__.py        App factory, error handlers, security headers, asset versioning
 │   ├── config.py          Environment-based configuration
-│   ├── routes.py          HTTP endpoints
+│   ├── routes.py          HTTP endpoints (/, /predict, /crop-guide, /health, /sw.js)
 │   ├── validation.py      Input ranges and validation
 │   ├── ml/predictor.py    Model loading and prediction
 │   ├── services/guides.py Groq guide generation, fallback chain, cache
-│   ├── static/            CSS, JS, PWA manifest, service worker, icons
-│   └── templates/         HTML templates
+│   ├── static/
+│   │   ├── css/           Styles
+│   │   ├── js/            app.js (logic), translations.js (21 languages)
+│   │   ├── icons/         PWA icons, favicon
+│   │   ├── img/           Social preview image
+│   │   └── manifest.json
+│   └── templates/         index.html, sw.js (service worker, rendered with a version hash)
 ├── data/                  Training dataset
 ├── models/                Trained model
-├── scripts/train_model.py Reproducible training and metrics
-├── tests/                 pytest suite
+├── scripts/
+│   ├── train_model.py     Reproducible training and metrics
+│   └── make_icons.py      Generates icons and the social image
+├── tests/                 pytest suite (API, guides, static assets, CSP)
 ├── wsgi.py                Production entry point
 └── requirements*.txt
 ~~~
@@ -107,6 +116,7 @@ cropsense/
 pytest                     # run tests
 ruff check . && ruff format --check .
 python scripts/train_model.py --out-dir /tmp/model-test   # retrain without touching models/
+python scripts/make_icons.py                              # regenerate icons and social image
 ~~~
 
 CI runs lint, format check and tests on every push and pull request.
@@ -121,9 +131,11 @@ environment variable in the Render dashboard.
 
 - [x] Input validation and hardened API responses
 - [x] Automated tests and CI
-- [ ] Frontend fixes (decimal inputs, labels, error states, service worker scope, icons)
+- [x] Frontend fixes (decimal inputs, labels, error states, service worker scope, icons, top-3 UI)
+- [ ] Translate the new UI strings into all 21 languages (missing keys fall back to English)
+- [ ] Browser-level tests for the frontend in CI
 - [ ] Curated, reviewed growing guides (no runtime LLM dependency)
-- [ ] Show top-3 and "why this crop" in the UI
+- [ ] "Why this crop": compare inputs with each crop's ideal ranges
 - [ ] Weather auto-fill, fertilizer advice, offline predictions
 - [ ] Working soil-report reader and real sensor integration
 
