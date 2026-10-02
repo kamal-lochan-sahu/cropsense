@@ -1,0 +1,14 @@
+{
+  "name": "cropsense-frontend-tests",
+  "private": true,
+  "description": "Frontend (jsdom) tests for CropSense. The app itself has no build step.",
+  "scripts": {
+    "test": "node --test tests/js/*.test.js"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "devDependencies": {
+    "jsdom": "^28.1.0"
+  }
+}

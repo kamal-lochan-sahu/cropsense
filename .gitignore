@@ -14,6 +14,9 @@ build/
 dist/
 *.egg-info/
 
+# Node (only used for the frontend tests)
+node_modules/
+
 # OS / editor / misc
 .DS_Store
 .idea/
