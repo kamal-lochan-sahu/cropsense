@@ -106,20 +106,23 @@ cropsense/
 │   ├── train_model.py     Reproducible training and metrics
 │   └── make_icons.py      Generates icons and the social image
 ├── tests/                 pytest suite (API, guides, static assets, CSP)
+│   └── js/                jsdom frontend tests (node --test)
 ├── wsgi.py                Production entry point
+├── package.json           Dev-only: jsdom for the frontend tests (no build step)
 └── requirements*.txt
 ~~~
 
 ## Development
 
 ~~~bash
-pytest                     # run tests
+pytest                     # backend tests
+npm ci && npm test         # frontend tests (jsdom, needs Node 20.19+)
 ruff check . && ruff format --check .
 python scripts/train_model.py --out-dir /tmp/model-test   # retrain without touching models/
 python scripts/make_icons.py                              # regenerate icons and social image
 ~~~
 
-CI runs lint, format check and tests on every push and pull request.
+CI runs lint, format check, backend tests and frontend tests on every push and pull request.
 
 ## Deployment
 
@@ -132,8 +135,8 @@ environment variable in the Render dashboard.
 - [x] Input validation and hardened API responses
 - [x] Automated tests and CI
 - [x] Frontend fixes (decimal inputs, labels, error states, service worker scope, icons, top-3 UI)
-- [ ] Translate the new UI strings into all 21 languages (missing keys fall back to English)
-- [ ] Browser-level tests for the frontend in CI
+- [x] Translate the new UI strings into all 21 languages
+- [x] Frontend tests (jsdom) in CI
 - [ ] Curated, reviewed growing guides (no runtime LLM dependency)
 - [ ] "Why this crop": compare inputs with each crop's ideal ranges
 - [ ] Weather auto-fill, fertilizer advice, offline predictions
