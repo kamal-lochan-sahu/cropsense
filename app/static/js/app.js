@@ -44,6 +44,10 @@ const CROP_EMOJI = {
   papaya: '🍈', coconut: '🥥', cotton: '🌿', jute: '🌿', coffee: '☕',
 };
 
+// Soil advice (the server compares N, P, K and pH with the typical values of the crop).
+const ADVICE_LABEL = { nitrogen: 'nitrogen', phosphorus: 'phosphorus', potassium: 'potassium', pH: 'ph' };
+const ADVICE_LOW_HINT = { nitrogen: 'fert_n', phosphorus: 'fert_p', potassium: 'fert_k', pH: 'ph_low' };
+
 const SENSOR_RANGES = {
   nitrogen: [20, 100], phosphorus: [15, 80], potassium: [20, 90], temperature: [18, 35],
   humidity: [40, 90], pH: [5.5, 7.5], rainfall: [50, 250],
@@ -242,6 +246,37 @@ function showStatus(message, kind = 'info') {
   box.hidden = false;
 }
 
+function adviceNumber(value) {
+  return String(Math.round(value * 10) / 10);
+}
+
+function adviceHint(item) {
+  if (item.status === 'low') return t(ADVICE_LOW_HINT[item.field]);
+  if (item.status === 'high') return t(item.field === 'pH' ? 'ph_high' : 'advice_high');
+  return null;
+}
+
+function renderAdvice(advice) {
+  const items = (Array.isArray(advice.items) ? advice.items : []).filter((item) => (
+    item.field in ADVICE_LABEL && ['low', 'ok', 'high'].includes(item.status)
+    && [item.low, item.high].every(Number.isFinite)));
+  if (!items.length) return null;
+
+  const rows = items.map((item) => h('li', { class: `advice-row advice-${item.status}` },
+    h('div', { class: 'advice-head' },
+      h('span', { class: 'advice-name', text: t(ADVICE_LABEL[item.field]) }),
+      h('span', { class: 'advice-badge', text: t(`status_${item.status}`) })),
+    h('div', { class: 'advice-range', text: t('advice_typical')
+      .replace('{min}', adviceNumber(item.low)).replace('{max}', adviceNumber(item.high)) }),
+    adviceHint(item) ? h('div', { class: 'advice-hint', text: adviceHint(item) }) : null));
+
+  return h('div', { class: 'advice' },
+    h('div', { class: 'advice-title', text: t('advice_title') }),
+    h('ul', { class: 'advice-list' }, rows),
+    items.every((item) => item.status === 'ok') ? h('div', { class: 'advice-all-ok', text: t('advice_ok') }) : null,
+    h('div', { class: 'advice-note', text: t('advice_note') }));
+}
+
 function renderResult(result) {
   const top = Array.isArray(result.top) && result.top.length
     ? result.top
@@ -266,6 +301,8 @@ function renderResult(result) {
       h('strong', { text: t('warn_title') }),
       h('ul', {}, result.warnings.map((w) => h('li', { text: w.message })))));
   }
+
+  if (result.advice) parts.push(renderAdvice(result.advice));
 
   parts.push(h('div', { class: 'result-tip', text: t('result_tip') }));
   parts.push(h('button', { type: 'button', class: 'learn-btn', onclick: () => showGuide(best.crop), text: t('learn_btn') }));
