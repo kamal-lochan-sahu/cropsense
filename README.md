@@ -12,6 +12,7 @@ own language.
 
 - Crop recommendation from 7 inputs (N, P, K, temperature, humidity, pH, rainfall), 22 crops
 - Top-3 suggestions with confidence bars, and a warning when inputs fall outside the range the model was trained on
+- Soil advice for the recommended crop: N, P, K and pH marked low / good / high against the crop's typical values, with fertilizer hints (computed locally from the training data, no external API)
 - Accessible form: visible labels, decimal input, inline per-field errors, clear error states
 - Growing guides (season, soil, water, fertilizer, pests, harvest, tip) in 21 languages
 - Multilingual UI with automatic language detection and RTL support (Arabic)
@@ -73,8 +74,15 @@ chain is used automatically.
 ~~~json
 {"crop": "rice", "confidence": 0.98,
  "top": [{"crop": "rice", "confidence": 0.98}, {"crop": "jute", "confidence": 0.02},
-         {"crop": "pomegranate", "confidence": 0.0}]}
+         {"crop": "pomegranate", "confidence": 0.0}],
+ "advice": {"crop": "rice",
+            "items": [{"field": "nitrogen", "status": "ok", "value": 90,
+                       "low": 62.9, "median": 80.0, "high": 95.0}, "..."]}}
 ~~~
+
+`advice` compares nitrogen, phosphorus, potassium and pH with the typical range (10th to 90th
+percentile) of the recommended crop in the training data. `status` is `low`, `ok` or `high`.
+The ranges live in `models/crop_profiles.json`, built by `scripts/build_crop_profiles.py`.
 
 Invalid input returns `422` with per-field errors. Values that are valid but outside the
 training range still return `200` with a `warnings` list.
@@ -92,6 +100,7 @@ cropsense/
 │   ├── routes.py          HTTP endpoints (/, /predict, /crop-guide, /health, /sw.js)
 │   ├── validation.py      Input ranges and validation
 │   ├── ml/predictor.py    Model loading and prediction
+│   ├── ml/advice.py       Soil advice from the crop profiles
 │   ├── services/guides.py Groq guide generation, fallback chain, cache
 │   ├── static/
 │   │   ├── css/           Styles
@@ -101,9 +110,10 @@ cropsense/
 │   │   └── manifest.json
 │   └── templates/         index.html, sw.js (service worker, rendered with a version hash)
 ├── data/                  Training dataset
-├── models/                Trained model
+├── models/                Trained model, crop soil profiles (crop_profiles.json)
 ├── scripts/
 │   ├── train_model.py     Reproducible training and metrics
+│   ├── build_crop_profiles.py  Typical N, P, K and pH per crop, from the dataset
 │   └── make_icons.py      Generates icons and the social image
 ├── tests/                 pytest suite (API, guides, static assets, CSP)
 │   └── js/                jsdom frontend tests (node --test)
@@ -119,6 +129,7 @@ pytest                     # backend tests
 npm ci && npm test         # frontend tests (jsdom, needs Node 20.19+)
 ruff check . && ruff format --check .
 python scripts/train_model.py --out-dir /tmp/model-test   # retrain without touching models/
+python scripts/build_crop_profiles.py                     # rebuild models/crop_profiles.json (after a dataset change)
 python scripts/make_icons.py                              # regenerate icons and social image
 ~~~
 
@@ -139,7 +150,8 @@ environment variable in the Render dashboard.
 - [x] Frontend tests (jsdom) in CI
 - [ ] Curated, reviewed growing guides (no runtime LLM dependency)
 - [ ] "Why this crop": compare inputs with each crop's ideal ranges
-- [ ] Weather auto-fill, fertilizer advice, offline predictions
+- [x] Soil advice: N, P, K and pH checked against the crop's typical ranges (local data, no external API)
+- [ ] Offline predictions
 - [ ] Working soil-report reader and real sensor integration
 
 ## License
