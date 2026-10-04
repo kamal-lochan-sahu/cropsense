@@ -1,0 +1,493 @@
+{
+  "percentiles": [
+    10,
+    90
+  ],
+  "dataset_sha256": "808e1d84a544647f1ab2fdae04f434b1842692d6be09eee18a5c2d43eb78d77c",
+  "crops": {
+    "apple": {
+      "N": {
+        "low": 2.0,
+        "median": 24.0,
+        "high": 35.0
+      },
+      "P": {
+        "low": 122.0,
+        "median": 136.5,
+        "high": 144.0
+      },
+      "K": {
+        "low": 196.0,
+        "median": 200.0,
+        "high": 205.0
+      },
+      "ph": {
+        "low": 5.6,
+        "median": 5.89,
+        "high": 6.29
+      }
+    },
+    "banana": {
+      "N": {
+        "low": 85.0,
+        "median": 100.5,
+        "high": 117.0
+      },
+      "P": {
+        "low": 72.0,
+        "median": 81.0,
+        "high": 92.1
+      },
+      "K": {
+        "low": 45.0,
+        "median": 50.0,
+        "high": 55.0
+      },
+      "ph": {
+        "low": 5.63,
+        "median": 5.99,
+        "high": 6.33
+      }
+    },
+    "blackgram": {
+      "N": {
+        "low": 21.9,
+        "median": 41.0,
+        "high": 57.0
+      },
+      "P": {
+        "low": 58.0,
+        "median": 67.0,
+        "high": 78.0
+      },
+      "K": {
+        "low": 15.0,
+        "median": 19.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 6.6,
+        "median": 7.17,
+        "high": 7.58
+      }
+    },
+    "chickpea": {
+      "N": {
+        "low": 24.0,
+        "median": 39.0,
+        "high": 57.1
+      },
+      "P": {
+        "low": 57.0,
+        "median": 68.0,
+        "high": 78.0
+      },
+      "K": {
+        "low": 76.0,
+        "median": 79.0,
+        "high": 85.0
+      },
+      "ph": {
+        "low": 6.31,
+        "median": 7.36,
+        "high": 8.49
+      }
+    },
+    "coconut": {
+      "N": {
+        "low": 3.0,
+        "median": 24.0,
+        "high": 37.0
+      },
+      "P": {
+        "low": 6.0,
+        "median": 15.5,
+        "high": 29.0
+      },
+      "K": {
+        "low": 26.0,
+        "median": 31.0,
+        "high": 35.0
+      },
+      "ph": {
+        "low": 5.57,
+        "median": 5.99,
+        "high": 6.38
+      }
+    },
+    "coffee": {
+      "N": {
+        "low": 83.9,
+        "median": 103.0,
+        "high": 117.0
+      },
+      "P": {
+        "low": 18.0,
+        "median": 29.0,
+        "high": 39.0
+      },
+      "K": {
+        "low": 26.0,
+        "median": 30.0,
+        "high": 35.0
+      },
+      "ph": {
+        "low": 6.14,
+        "median": 6.8,
+        "high": 7.29
+      }
+    },
+    "cotton": {
+      "N": {
+        "low": 102.0,
+        "median": 117.0,
+        "high": 133.0
+      },
+      "P": {
+        "low": 37.0,
+        "median": 46.0,
+        "high": 57.1
+      },
+      "K": {
+        "low": 15.0,
+        "median": 19.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 6.13,
+        "median": 6.84,
+        "high": 7.81
+      }
+    },
+    "grapes": {
+      "N": {
+        "low": 6.0,
+        "median": 24.0,
+        "high": 39.0
+      },
+      "P": {
+        "low": 121.9,
+        "median": 133.0,
+        "high": 142.0
+      },
+      "K": {
+        "low": 195.0,
+        "median": 201.0,
+        "high": 204.0
+      },
+      "ph": {
+        "low": 5.62,
+        "median": 6.0,
+        "high": 6.42
+      }
+    },
+    "jute": {
+      "N": {
+        "low": 63.0,
+        "median": 78.0,
+        "high": 91.0
+      },
+      "P": {
+        "low": 38.0,
+        "median": 46.0,
+        "high": 57.0
+      },
+      "K": {
+        "low": 35.0,
+        "median": 40.0,
+        "high": 44.0
+      },
+      "ph": {
+        "low": 6.13,
+        "median": 6.71,
+        "high": 7.32
+      }
+    },
+    "kidneybeans": {
+      "N": {
+        "low": 5.9,
+        "median": 22.0,
+        "high": 35.1
+      },
+      "P": {
+        "low": 57.9,
+        "median": 67.0,
+        "high": 79.0
+      },
+      "K": {
+        "low": 15.9,
+        "median": 20.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 5.56,
+        "median": 5.75,
+        "high": 5.95
+      }
+    },
+    "lentil": {
+      "N": {
+        "low": 3.0,
+        "median": 16.5,
+        "high": 36.1
+      },
+      "P": {
+        "low": 58.9,
+        "median": 68.0,
+        "high": 78.1
+      },
+      "K": {
+        "low": 15.0,
+        "median": 19.0,
+        "high": 23.1
+      },
+      "ph": {
+        "low": 6.17,
+        "median": 6.95,
+        "high": 7.67
+      }
+    },
+    "maize": {
+      "N": {
+        "low": 61.9,
+        "median": 76.0,
+        "high": 95.1
+      },
+      "P": {
+        "low": 37.0,
+        "median": 48.5,
+        "high": 59.0
+      },
+      "K": {
+        "low": 16.0,
+        "median": 20.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 5.72,
+        "median": 6.26,
+        "high": 6.8
+      }
+    },
+    "mango": {
+      "N": {
+        "low": 2.9,
+        "median": 21.0,
+        "high": 37.0
+      },
+      "P": {
+        "low": 17.0,
+        "median": 27.5,
+        "high": 37.0
+      },
+      "K": {
+        "low": 26.0,
+        "median": 30.0,
+        "high": 34.0
+      },
+      "ph": {
+        "low": 4.76,
+        "median": 5.74,
+        "high": 6.78
+      }
+    },
+    "mothbeans": {
+      "N": {
+        "low": 4.9,
+        "median": 22.0,
+        "high": 36.0
+      },
+      "P": {
+        "low": 37.0,
+        "median": 48.5,
+        "high": 58.0
+      },
+      "K": {
+        "low": 16.0,
+        "median": 20.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 4.16,
+        "median": 7.22,
+        "high": 9.08
+      }
+    },
+    "mungbean": {
+      "N": {
+        "low": 4.0,
+        "median": 22.0,
+        "high": 35.1
+      },
+      "P": {
+        "low": 37.0,
+        "median": 47.0,
+        "high": 59.0
+      },
+      "K": {
+        "low": 15.0,
+        "median": 20.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 6.36,
+        "median": 6.7,
+        "high": 7.13
+      }
+    },
+    "muskmelon": {
+      "N": {
+        "low": 83.0,
+        "median": 100.0,
+        "high": 117.0
+      },
+      "P": {
+        "low": 7.0,
+        "median": 18.0,
+        "high": 26.0
+      },
+      "K": {
+        "low": 46.0,
+        "median": 50.0,
+        "high": 54.1
+      },
+      "ph": {
+        "low": 6.08,
+        "median": 6.35,
+        "high": 6.7
+      }
+    },
+    "orange": {
+      "N": {
+        "low": 4.9,
+        "median": 19.0,
+        "high": 37.0
+      },
+      "P": {
+        "low": 7.0,
+        "median": 16.0,
+        "high": 28.1
+      },
+      "K": {
+        "low": 6.0,
+        "median": 10.0,
+        "high": 14.0
+      },
+      "ph": {
+        "low": 6.25,
+        "median": 7.02,
+        "high": 7.8
+      }
+    },
+    "papaya": {
+      "N": {
+        "low": 34.0,
+        "median": 49.0,
+        "high": 68.0
+      },
+      "P": {
+        "low": 48.0,
+        "median": 60.0,
+        "high": 68.0
+      },
+      "K": {
+        "low": 46.0,
+        "median": 50.0,
+        "high": 54.0
+      },
+      "ph": {
+        "low": 6.55,
+        "median": 6.74,
+        "high": 6.97
+      }
+    },
+    "pigeonpeas": {
+      "N": {
+        "low": 5.0,
+        "median": 20.0,
+        "high": 37.0
+      },
+      "P": {
+        "low": 57.0,
+        "median": 69.5,
+        "high": 77.0
+      },
+      "K": {
+        "low": 16.9,
+        "median": 20.0,
+        "high": 24.0
+      },
+      "ph": {
+        "low": 4.72,
+        "median": 5.69,
+        "high": 7.05
+      }
+    },
+    "pomegranate": {
+      "N": {
+        "low": 4.0,
+        "median": 18.0,
+        "high": 38.1
+      },
+      "P": {
+        "low": 7.9,
+        "median": 20.0,
+        "high": 27.1
+      },
+      "K": {
+        "low": 36.0,
+        "median": 40.0,
+        "high": 44.0
+      },
+      "ph": {
+        "low": 5.77,
+        "median": 6.43,
+        "high": 7.06
+      }
+    },
+    "rice": {
+      "N": {
+        "low": 62.9,
+        "median": 80.0,
+        "high": 95.0
+      },
+      "P": {
+        "low": 36.0,
+        "median": 47.0,
+        "high": 58.0
+      },
+      "K": {
+        "low": 36.0,
+        "median": 40.0,
+        "high": 44.0
+      },
+      "ph": {
+        "low": 5.38,
+        "median": 6.36,
+        "high": 7.48
+      }
+    },
+    "watermelon": {
+      "N": {
+        "low": 83.0,
+        "median": 99.0,
+        "high": 118.0
+      },
+      "P": {
+        "low": 7.0,
+        "median": 17.5,
+        "high": 27.0
+      },
+      "K": {
+        "low": 45.0,
+        "median": 50.5,
+        "high": 55.0
+      },
+      "ph": {
+        "low": 6.11,
+        "median": 6.47,
+        "high": 6.88
+      }
+    }
+  }
+}

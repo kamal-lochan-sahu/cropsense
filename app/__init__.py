@@ -11,6 +11,7 @@ from flask import Flask, request
 from werkzeug.exceptions import HTTPException, InternalServerError
 
 from .config import Config
+from .ml.advice import Advisor
 from .ml.predictor import Predictor
 from .routes import API_PATHS, bp
 from .services.guides import GuideService
@@ -26,6 +27,7 @@ def create_app(test_config: dict[str, Any] | None = None) -> Flask:
 
     predictor = Predictor(app.config["MODEL_PATH"])
     app.extensions["predictor"] = predictor
+    app.extensions["advisor"] = Advisor(app.config["CROP_PROFILES_PATH"], predictor.classes)
     app.extensions["guides"] = GuideService(
         api_key=app.config["GROQ_API_KEY"],
         models=[app.config["GROQ_MODEL"], *app.config["GROQ_FALLBACK_MODELS"]],

@@ -13,7 +13,7 @@ from flask import (
 )
 
 from .services.guides import GuideError
-from .validation import ValidationError, parse_features
+from .validation import FIELDS, ValidationError, parse_features
 
 bp = Blueprint("main", __name__)
 
@@ -68,6 +68,8 @@ def predict():
         return _error("validation_failed", 422, fields=exc.errors)
 
     result = current_app.extensions["predictor"].predict(values)
+    soil = {field.key: value for field, value in zip(FIELDS, values, strict=True)}
+    result["advice"] = current_app.extensions["advisor"].advise(result["crop"], soil)
     if warnings:
         result["warnings"] = warnings
     return jsonify(result)
