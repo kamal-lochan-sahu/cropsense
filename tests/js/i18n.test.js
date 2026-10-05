@@ -103,19 +103,19 @@ test('detectBrowserLang picks the first supported non-English language', async (
 });
 
 test('auto mode uses the browser language when it is supported', async (t) => {
-  const app = await withApp(t, { storage: {}, languages: ['ja-JP'] });
+  const app = await withApp(t, { storage: { cs_lang_pick: 'auto' }, languages: ['ja-JP'] });
   assert.equal(app.document.documentElement.lang, 'ja');
   assert.equal(app.$('submitBtn').textContent, app.page('TRANSLATIONS').ja.btn);
 });
 
 test('auto mode falls back to the IP location, and to English when that fails', async (t) => {
   const odisha = await withApp(t, {
-    storage: {},
+    storage: { cs_lang_pick: 'auto' },
     fetch: async () => jsonResponse(200, { country_code: 'IN', region: 'Odisha' }),
   });
   assert.equal(odisha.document.documentElement.lang, 'or');
 
-  const failing = await withApp(t, { storage: {} });
+  const failing = await withApp(t, { storage: { cs_lang_pick: 'auto' } });
   assert.equal(failing.document.documentElement.lang, 'en');
 });
 
@@ -129,12 +129,77 @@ test('choosing a language from the dropdown applies and remembers it', async (t)
   app.$('lang-select').dispatchEvent(new app.window.Event('change'));
   assert.equal(app.document.documentElement.lang, 'ta');
   assert.equal(app.window.localStorage.getItem('cs_lang'), 'ta');
-  assert.equal(app.window.localStorage.getItem('cs_lang_mode'), 'choose');
+  assert.equal(app.window.localStorage.getItem('cs_lang_pick'), 'choose');
 });
 
 test('the saved language mode is restored on load', async (t) => {
-  const app = await withApp(t, { storage: { cs_lang_mode: 'choose', cs_lang: 'ko' } });
+  const app = await withApp(t, { storage: { cs_lang_pick: 'choose', cs_lang: 'ko' } });
   assert.equal(app.document.documentElement.lang, 'ko');
   assert.equal(app.$('lang-select').value, 'ko');
   assert.equal(app.$('lang-dropdown').hidden, false);
+});
+
+/* ── Default language: English until the user changes it ───────────── */
+
+const ipLookups = (app) => app.calls.filter((call) => call.url.includes('ipapi.co'));
+const modeButton = (app, mode) => app.document.querySelector(`[data-lang-mode="${mode}"]`);
+
+test('the page opens in English even when the browser prefers another language', async (t) => {
+  const app = await withApp(t, { languages: ['ja-JP', 'hi-IN'] });
+  assert.equal(app.document.documentElement.lang, 'en');
+  assert.equal(app.$('submitBtn').textContent, app.page('TRANSLATIONS').en.btn);
+  assert.equal(modeButton(app, 'en').getAttribute('aria-pressed'), 'true');
+  assert.equal(modeButton(app, 'auto').getAttribute('aria-pressed'), 'false');
+});
+
+test('opening the page makes no region lookup and saves no language mode', async (t) => {
+  const app = await withApp(t, { languages: ['de-DE'] });
+  assert.equal(ipLookups(app).length, 0);
+  assert.equal(app.window.localStorage.getItem('cs_lang_pick'), null);
+});
+
+test('tapping Auto switches to the browser language and remembers the choice', async (t) => {
+  const app = await withApp(t, { languages: ['de-DE'] });
+  modeButton(app, 'auto').click();
+  await tick(10);
+  assert.equal(app.document.documentElement.lang, 'de');
+  assert.equal(modeButton(app, 'auto').getAttribute('aria-pressed'), 'true');
+  assert.equal(app.window.localStorage.getItem('cs_lang_pick'), 'auto');
+  assert.equal(ipLookups(app).length, 0); // the browser language was enough
+});
+
+test('tapping Auto looks up the region only when the browser language is English', async (t) => {
+  const app = await withApp(t, {
+    fetch: async () => jsonResponse(200, { country_code: 'IN', region: 'Odisha' }),
+  });
+  assert.equal(ipLookups(app).length, 0);
+  modeButton(app, 'auto').click();
+  await tick(10);
+  assert.equal(ipLookups(app).length, 1);
+  assert.equal(app.document.documentElement.lang, 'or');
+});
+
+test('tapping English after Auto goes back to English and remembers it', async (t) => {
+  const app = await withApp(t, { languages: ['fr-FR'] });
+  modeButton(app, 'auto').click();
+  await tick(10);
+  assert.equal(app.document.documentElement.lang, 'fr');
+  modeButton(app, 'en').click();
+  await tick(10);
+  assert.equal(app.document.documentElement.lang, 'en');
+  assert.equal(app.window.localStorage.getItem('cs_lang_pick'), 'en');
+});
+
+test('an Auto mode saved by an earlier version is ignored, so the page opens in English', async (t) => {
+  const app = await withApp(t, { storage: { cs_lang_mode: 'auto' }, languages: ['ja-JP'] });
+  assert.equal(app.document.documentElement.lang, 'en');
+  assert.equal(ipLookups(app).length, 0);
+});
+
+test('a language the user picked earlier is still restored', async (t) => {
+  const app = await withApp(t, { storage: { cs_lang: 'ta' } });
+  assert.equal(app.document.documentElement.lang, 'ta');
+  assert.equal(app.$('lang-select').value, 'ta');
+  assert.equal(app.$('lang-dropdown').hidden, false);
+  assert.equal(modeButton(app, 'choose').getAttribute('aria-pressed'), 'true');
 });

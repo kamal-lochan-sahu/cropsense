@@ -15,7 +15,7 @@ own language.
 - Soil advice for the recommended crop: N, P, K and pH marked low / good / high against the crop's typical values, with fertilizer hints (computed locally from the training data, no external API)
 - Accessible form: visible labels, decimal input, inline per-field errors, clear error states
 - Growing guides (season, soil, water, fertilizer, pests, harvest, tip) in 21 languages
-- Multilingual UI with automatic language detection and RTL support (Arabic)
+- Multilingual UI in 21 languages with RTL support (Arabic): opens in English; the user can choose a language or follow their region (the region lookup only runs after tapping Auto)
 - Installable PWA: root-scope service worker with a versioned cache (no stale files after a deploy), real icons
 - Strict Content-Security-Policy; server and LLM text is never parsed as HTML
 - Demo-only for now: **Soil Report upload** and **Live Sensor** tabs are placeholders

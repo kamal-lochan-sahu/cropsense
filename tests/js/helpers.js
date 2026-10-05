@@ -32,10 +32,10 @@ async function waitFor(condition, timeoutMs = 2000) {
 }
 
 /* options.fetch      mock fetch(url, init); defaults to a network failure
-   options.storage    initial localStorage content; defaults to English mode so no network is used
+   options.storage    initial localStorage content; empty by default, which opens in English without any network call
    options.languages  navigator.languages */
 async function loadApp(options = {}) {
-  const storage = options.storage || { cs_lang_mode: 'en' };
+  const storage = options.storage || {};
   const languages = options.languages || ['en-US', 'en'];
   const calls = [];
   const fetchMock = options.fetch || (async () => { throw new TypeError('network down'); });

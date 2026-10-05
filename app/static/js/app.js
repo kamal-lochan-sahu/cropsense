@@ -158,7 +158,7 @@ async function detectAutoLang() {
 
 let langModeRequest = 0;
 
-async function setLangMode(mode) {
+async function setLangMode(mode, save = true) {
   const request = ++langModeRequest;
   document.querySelectorAll('.lang-opt').forEach((button) => {
     const active = button.dataset.langMode === mode;
@@ -166,7 +166,7 @@ async function setLangMode(mode) {
     button.setAttribute('aria-pressed', String(active));
   });
   $('lang-dropdown').hidden = mode !== 'choose';
-  storage.set('cs_lang_mode', mode);
+  if (save) storage.set('cs_lang_pick', mode); // only a mode the user tapped is remembered
 
   if (mode === 'en') {
     applyLang('en');
@@ -511,10 +511,12 @@ async function init() {
   checkOnline();
   registerServiceWorker();
 
+  // The page opens in English. A language mode is restored only if the user picked one earlier;
+  // the region lookup (ipapi.co) therefore runs only after the user taps "Auto".
   const legacyLang = storage.get('cs_lang');
-  let mode = storage.get('cs_lang_mode');
-  if (!mode) mode = legacyLang ? (legacyLang === DEFAULT_LANG ? 'en' : 'choose') : 'auto';
-  await setLangMode(mode);
+  let mode = storage.get('cs_lang_pick');
+  if (!mode) mode = legacyLang && legacyLang !== DEFAULT_LANG ? 'choose' : 'en';
+  await setLangMode(mode, false);
 }
 
 document.addEventListener('DOMContentLoaded', init);

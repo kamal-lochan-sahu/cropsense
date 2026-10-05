@@ -112,7 +112,7 @@ test('422 shows an error under each bad field and focuses the first one', async 
 
 test('field errors are translated, including the range placeholders', async (t) => {
   const app = await loadApp({
-    storage: { cs_lang_mode: 'choose', cs_lang: 'de' },
+    storage: { cs_lang_pick: 'choose', cs_lang: 'de' },
     fetch: async () => jsonResponse(422, { fields: { rainfall: 'must be between 0 and 5000', humidity: 'required', pH: 'not a number' } }),
   });
   t.after(() => app.close());
