@@ -387,7 +387,7 @@ function fallbackLinks(crop) {
     link(`https://en.wikipedia.org/wiki/${query}`, '📖 Wikipedia'));
 }
 
-function renderGuide(crop, guide) {
+function renderGuide(crop, guide, source) {
   const labels = guideLabels();
   const rows = GUIDE_ROWS.filter(([key]) => typeof guide[key] === 'string' && guide[key]).map(([key, icon]) =>
     h('div', { class: 'guide-row' },
@@ -402,7 +402,7 @@ function renderGuide(crop, guide) {
     typeof guide.tip === 'string' && guide.tip
       ? h('div', { class: 'learn-tip' }, '💡 ', h('strong', { text: `${labels.tip}:` }), ` ${guide.tip}`)
       : null,
-    h('div', { class: 'ai-credit', text: t('ai_credit') }));
+    h('div', { class: 'ai-credit', text: t(source === 'curated' ? 'guide_credit' : 'ai_credit') }));
 }
 
 async function showGuide(crop) {
@@ -419,7 +419,7 @@ async function showGuide(crop) {
     const { ok, body } = await postJson(API.guide, { crop, lang: currentLang }, GUIDE_TIMEOUT_MS);
     if (requestId !== guideRequestId) return;
     if (!ok || body.error) throw new Error(body.error || 'failed');
-    renderGuide(crop, JSON.parse(body.guide));
+    renderGuide(crop, JSON.parse(body.guide), body.source);
   } catch {
     if (requestId !== guideRequestId) return;
     panel.replaceChildren(

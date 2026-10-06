@@ -32,6 +32,7 @@ const TRANSLATIONS = {
     ph_low:"Soil is too acidic for this crop. Lime can help.", ph_high:"Soil is too alkaline for this crop. Gypsum or organic matter can help.",
     advice_high:"Already high for this crop. Do not add more.", advice_ok:"Your soil values suit this crop.",
     advice_note:"Based on typical values for this crop in our data, not a lab test. Confirm with your local agriculture office.",
+    guide_credit:"Based on standard farming practice. Confirm with your local agriculture office.",
   },
 
   /* ── Indian languages ── */
@@ -59,6 +60,7 @@ const TRANSLATIONS = {
     ph_low:"इस फसल के लिए मिट्टी बहुत अम्लीय है। चूना डालने से मदद मिल सकती है।", ph_high:"इस फसल के लिए मिट्टी बहुत क्षारीय है। जिप्सम या जैविक खाद से मदद मिल सकती है।",
     advice_high:"इस फसल के लिए पहले से ज़्यादा है। और न डालें।", advice_ok:"आपकी मिट्टी के मान इस फसल के लिए ठीक हैं।",
     advice_note:"हमारे डेटा में इस फसल के सामान्य मानों पर आधारित, लैब जाँच नहीं। स्थानीय कृषि कार्यालय से पुष्टि करें।",
+    guide_credit:"सामान्य खेती के तरीकों पर आधारित। स्थानीय कृषि कार्यालय से पुष्टि करें।",
   },
   or: {
     title:"☘ କ୍ରପସେନ୍ସ", subtitle:"AI ଆଧାରିତ ଫସଲ ପରାମର୍ଶ",
@@ -84,6 +86,7 @@ const TRANSLATIONS = {
     ph_low:"ଏହି ଫସଲ ପାଇଁ ମାଟି ବହୁତ ଅମ୍ଳୀୟ। ଚୂନ ଦେଲେ ସାହାଯ୍ୟ ମିଳିପାରେ।", ph_high:"ଏହି ଫସଲ ପାଇଁ ମାଟି ବହୁତ କ୍ଷାରୀୟ। ଜିପସମ୍ କିମ୍ବା ଜୈବିକ ସାର ଦେଲେ ସାହାଯ୍ୟ ମିଳିପାରେ।",
     advice_high:"ଏହି ଫସଲ ପାଇଁ ପୂର୍ବରୁ ଅଧିକ ଅଛି। ଆଉ ଦିଅନ୍ତୁ ନାହିଁ।", advice_ok:"ଆପଣଙ୍କ ମାଟିର ମାନ ଏହି ଫସଲ ପାଇଁ ଠିକ୍ ଅଛି।",
     advice_note:"ଆମ ଡାଟାରେ ଏହି ଫସଲର ସାଧାରଣ ମାନ ଉପରେ ଆଧାରିତ, ଲ୍ୟାବ୍ ପରୀକ୍ଷା ନୁହେଁ। ସ୍ଥାନୀୟ କୃଷି କାର୍ଯ୍ୟାଳୟରୁ ନିଶ୍ଚିତ କରନ୍ତୁ।",
+    guide_credit:"ସାଧାରଣ ଚାଷ ପଦ୍ଧତି ଆଧାରରେ। ସ୍ଥାନୀୟ କୃଷି କାର୍ଯ୍ୟାଳୟରୁ ନିଶ୍ଚିତ କରନ୍ତୁ।",
   },
   mr: {
     title:"☘ क्रॉपसेन्स", subtitle:"AI-आधारित पीक शिफारस प्रणाली",
@@ -109,6 +112,7 @@ const TRANSLATIONS = {
     ph_low:"या पिकासाठी माती खूप आम्लयुक्त आहे. चुना घातल्यास मदत होऊ शकते.", ph_high:"या पिकासाठी माती खूप क्षारयुक्त आहे. जिप्सम किंवा सेंद्रिय खत घातल्यास मदत होऊ शकते.",
     advice_high:"या पिकासाठी आधीच जास्त आहे. आणखी घालू नका.", advice_ok:"तुमच्या मातीची मूल्ये या पिकासाठी योग्य आहेत.",
     advice_note:"आमच्या डेटामधील या पिकाच्या सामान्य मूल्यांवर आधारित, प्रयोगशाळा चाचणी नाही. स्थानिक कृषी कार्यालयाकडून खात्री करा.",
+    guide_credit:"सर्वसाधारण शेती पद्धतींवर आधारित. स्थानिक कृषी कार्यालयाकडून खात्री करा.",
   },
   bn: {
     title:"☘ ক্রপসেন্স", subtitle:"AI-চালিত ফসল সুপারিশ ব্যবস্থা",
@@ -134,6 +138,7 @@ const TRANSLATIONS = {
     ph_low:"এই ফসলের জন্য মাটি বেশি অম্লীয়। চুন দিলে সাহায্য হতে পারে।", ph_high:"এই ফসলের জন্য মাটি বেশি ক্ষারীয়। জিপসাম বা জৈব সার দিলে সাহায্য হতে পারে।",
     advice_high:"এই ফসলের জন্য ইতিমধ্যে বেশি আছে। আর দেবেন না।", advice_ok:"আপনার মাটির মান এই ফসলের জন্য উপযুক্ত।",
     advice_note:"আমাদের ডেটায় এই ফসলের সাধারণ মানের ভিত্তিতে, ল্যাব পরীক্ষা নয়। স্থানীয় কৃষি অফিস থেকে নিশ্চিত হয়ে নিন।",
+    guide_credit:"প্রচলিত চাষাবাদ পদ্ধতির ভিত্তিতে। স্থানীয় কৃষি অফিস থেকে নিশ্চিত হয়ে নিন।",
   },
   ta: {
     title:"☘ கிராப்சென்ஸ்", subtitle:"AI சார்ந்த பயிர் பரிந்துரை",
@@ -159,6 +164,7 @@ const TRANSLATIONS = {
     ph_low:"இந்தப் பயிருக்கு மண் மிகவும் அமிலத்தன்மை கொண்டது. சுண்ணாம்பு உதவலாம்.", ph_high:"இந்தப் பயிருக்கு மண் மிகவும் காரத்தன்மை கொண்டது. ஜிப்சம் அல்லது இயற்கை எரு உதவலாம்.",
     advice_high:"இந்தப் பயிருக்கு ஏற்கனவே அதிகமாக உள்ளது. மேலும் இட வேண்டாம்.", advice_ok:"உங்கள் மண்ணின் மதிப்புகள் இந்தப் பயிருக்குப் பொருத்தமானவை.",
     advice_note:"எங்கள் தரவில் இந்தப் பயிருக்கான வழக்கமான மதிப்புகளின் அடிப்படையில், ஆய்வக சோதனை அல்ல. உள்ளூர் வேளாண் அலுவலகத்தில் உறுதிசெய்யவும்.",
+    guide_credit:"வழக்கமான வேளாண் நடைமுறைகளின் அடிப்படையில். உள்ளூர் வேளாண் அலுவலகத்தில் உறுதிசெய்யவும்.",
   },
   te: {
     title:"☘ క్రాప్‌సెన్స్", subtitle:"AI ఆధారిత పంట సిఫార్సు",
@@ -184,6 +190,7 @@ const TRANSLATIONS = {
     ph_low:"ఈ పంటకు నేల చాలా ఆమ్లంగా ఉంది. సున్నం వేస్తే సహాయపడవచ్చు.", ph_high:"ఈ పంటకు నేల చాలా క్షారంగా ఉంది. జిప్సం లేదా సేంద్రీయ ఎరువు సహాయపడవచ్చు.",
     advice_high:"ఈ పంటకు ఇప్పటికే ఎక్కువగా ఉంది. ఇంకా వేయవద్దు.", advice_ok:"మీ నేల విలువలు ఈ పంటకు సరిపోతాయి.",
     advice_note:"మా డేటాలో ఈ పంటకు సాధారణ విలువల ఆధారంగా, ల్యాబ్ పరీక్ష కాదు. స్థానిక వ్యవసాయ కార్యాలయంలో నిర్ధారించుకోండి.",
+    guide_credit:"సాధారణ వ్యవసాయ పద్ధతుల ఆధారంగా. స్థానిక వ్యవసాయ కార్యాలయంలో నిర్ధారించుకోండి.",
   },
   kn: {
     title:"☘ ಕ್ರಾಪ್‌ಸೆನ್ಸ್", subtitle:"AI ಆಧಾರಿತ ಬೆಳೆ ಶಿಫಾರಸು",
@@ -209,6 +216,7 @@ const TRANSLATIONS = {
     ph_low:"ಈ ಬೆಳೆಗೆ ಮಣ್ಣು ತುಂಬಾ ಆಮ್ಲೀಯವಾಗಿದೆ. ಸುಣ್ಣ ಹಾಕಿದರೆ ಸಹಾಯವಾಗಬಹುದು.", ph_high:"ಈ ಬೆಳೆಗೆ ಮಣ್ಣು ತುಂಬಾ ಕ್ಷಾರೀಯವಾಗಿದೆ. ಜಿಪ್ಸಂ ಅಥವಾ ಸಾವಯವ ಗೊಬ್ಬರ ಸಹಾಯವಾಗಬಹುದು.",
     advice_high:"ಈ ಬೆಳೆಗೆ ಈಗಾಗಲೇ ಹೆಚ್ಚಾಗಿದೆ. ಇನ್ನಷ್ಟು ಹಾಕಬೇಡಿ.", advice_ok:"ನಿಮ್ಮ ಮಣ್ಣಿನ ಮೌಲ್ಯಗಳು ಈ ಬೆಳೆಗೆ ಸೂಕ್ತವಾಗಿವೆ.",
     advice_note:"ನಮ್ಮ ಡೇಟಾದಲ್ಲಿ ಈ ಬೆಳೆಯ ಸಾಮಾನ್ಯ ಮೌಲ್ಯಗಳ ಆಧಾರದ ಮೇಲೆ, ಪ್ರಯೋಗಾಲಯ ಪರೀಕ್ಷೆಯಲ್ಲ. ಸ್ಥಳೀಯ ಕೃಷಿ ಕಚೇರಿಯಲ್ಲಿ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+    guide_credit:"ಸಾಮಾನ್ಯ ಕೃಷಿ ಪದ್ಧತಿಗಳ ಆಧಾರದ ಮೇಲೆ. ಸ್ಥಳೀಯ ಕೃಷಿ ಕಚೇರಿಯಲ್ಲಿ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
   },
   gu: {
     title:"☘ ક્રોપસેન્સ", subtitle:"AI આધારિત પાક ભલામણ",
@@ -234,6 +242,7 @@ const TRANSLATIONS = {
     ph_low:"આ પાક માટે માટી ખૂબ એસિડિક છે. ચૂનો નાખવાથી મદદ મળી શકે.", ph_high:"આ પાક માટે માટી ખૂબ ક્ષારીય છે. જિપ્સમ અથવા સેંદ્રિય ખાતરથી મદદ મળી શકે.",
     advice_high:"આ પાક માટે પહેલેથી વધારે છે. વધુ ન નાખો.", advice_ok:"તમારી માટીના મૂલ્યો આ પાક માટે યોગ્ય છે.",
     advice_note:"અમારા ડેટામાં આ પાકના સામાન્ય મૂલ્યો પર આધારિત, લેબ ટેસ્ટ નથી. સ્થાનિક કૃષિ કચેરીથી ખાતરી કરો.",
+    guide_credit:"સામાન્ય ખેતી પદ્ધતિઓ પર આધારિત. સ્થાનિક કૃષિ કચેરીથી ખાતરી કરો.",
   },
   pa: {
     title:"☘ ਕ੍ਰੌਪਸੈਂਸ", subtitle:"AI ਅਧਾਰਿਤ ਫ਼ਸਲ ਸਿਫ਼ਾਰਸ਼",
@@ -259,6 +268,7 @@ const TRANSLATIONS = {
     ph_low:"ਇਸ ਫ਼ਸਲ ਲਈ ਮਿੱਟੀ ਬਹੁਤ ਤੇਜ਼ਾਬੀ ਹੈ। ਚੂਨਾ ਪਾਉਣ ਨਾਲ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ।", ph_high:"ਇਸ ਫ਼ਸਲ ਲਈ ਮਿੱਟੀ ਬਹੁਤ ਖਾਰੀ ਹੈ। ਜਿਪਸਮ ਜਾਂ ਜੈਵਿਕ ਖਾਦ ਨਾਲ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ।",
     advice_high:"ਇਸ ਫ਼ਸਲ ਲਈ ਪਹਿਲਾਂ ਹੀ ਵੱਧ ਹੈ। ਹੋਰ ਨਾ ਪਾਓ।", advice_ok:"ਤੁਹਾਡੀ ਮਿੱਟੀ ਦੇ ਮੁੱਲ ਇਸ ਫ਼ਸਲ ਲਈ ਠੀਕ ਹਨ।",
     advice_note:"ਸਾਡੇ ਡਾਟੇ ਵਿੱਚ ਇਸ ਫ਼ਸਲ ਦੇ ਆਮ ਮੁੱਲਾਂ ਉੱਤੇ ਆਧਾਰਿਤ, ਲੈਬ ਟੈਸਟ ਨਹੀਂ। ਸਥਾਨਕ ਖੇਤੀਬਾੜੀ ਦਫ਼ਤਰ ਤੋਂ ਪੁਸ਼ਟੀ ਕਰੋ।",
+    guide_credit:"ਆਮ ਖੇਤੀ ਤਰੀਕਿਆਂ ਉੱਤੇ ਆਧਾਰਿਤ। ਸਥਾਨਕ ਖੇਤੀਬਾੜੀ ਦਫ਼ਤਰ ਤੋਂ ਪੁਸ਼ਟੀ ਕਰੋ।",
   },
   ml: {
     title:"☘ ക്രോപ്‌സെൻസ്", subtitle:"AI അടിസ്ഥാനമായ വിള ശുപാർശ",
@@ -284,6 +294,7 @@ const TRANSLATIONS = {
     ph_low:"ഈ വിളയ്ക്ക് മണ്ണ് വളരെ അമ്ലത്വമുള്ളതാണ്. കുമ്മായം ചേർക്കുന്നത് സഹായിക്കും.", ph_high:"ഈ വിളയ്ക്ക് മണ്ണ് വളരെ ക്ഷാരസ്വഭാവമുള്ളതാണ്. ജിപ്സം അല്ലെങ്കിൽ ജൈവവളം സഹായിക്കും.",
     advice_high:"ഈ വിളയ്ക്ക് ഇതിനകം കൂടുതലാണ്. ഇനി ചേർക്കരുത്.", advice_ok:"നിങ്ങളുടെ മണ്ണിന്റെ മൂല്യങ്ങൾ ഈ വിളയ്ക്ക് അനുയോജ്യമാണ്.",
     advice_note:"ഞങ്ങളുടെ ഡാറ്റയിലെ ഈ വിളയുടെ സാധാരണ മൂല്യങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ളത്, ലാബ് പരിശോധനയല്ല. പ്രാദേശിക കൃഷി ഓഫീസിൽ സ്ഥിരീകരിക്കുക.",
+    guide_credit:"സാധാരണ കൃഷിരീതികളെ അടിസ്ഥാനമാക്കിയുള്ളത്. പ്രാദേശിക കൃഷി ഓഫീസിൽ സ്ഥിരീകരിക്കുക.",
   },
 
   /* ── World languages ── */
@@ -311,6 +322,7 @@ const TRANSLATIONS = {
     ph_low:"Der Boden ist für diese Kultur zu sauer. Kalk kann helfen.", ph_high:"Der Boden ist für diese Kultur zu alkalisch. Gips oder organisches Material kann helfen.",
     advice_high:"Für diese Kultur bereits hoch. Düngen Sie nicht weiter.", advice_ok:"Ihre Bodenwerte passen zu dieser Kultur.",
     advice_note:"Basiert auf üblichen Werten dieser Kultur in unseren Daten, keine Laboranalyse. Lassen Sie es von Ihrem örtlichen Landwirtschaftsamt bestätigen.",
+    guide_credit:"Basiert auf üblicher landwirtschaftlicher Praxis. Lassen Sie es von Ihrem örtlichen Landwirtschaftsamt bestätigen.",
   },
   it: {
     title:"☘ CropSense", subtitle:"Raccomandazione colture basata su AI",
@@ -336,6 +348,7 @@ const TRANSLATIONS = {
     ph_low:"Il suolo è troppo acido per questa coltura. La calce può aiutare.", ph_high:"Il suolo è troppo alcalino per questa coltura. Gesso o sostanza organica possono aiutare.",
     advice_high:"Già alto per questa coltura. Non aggiungerne altro.", advice_ok:"I valori del tuo suolo vanno bene per questa coltura.",
     advice_note:"Basato sui valori tipici di questa coltura nei nostri dati, non è un'analisi di laboratorio. Conferma con l'ufficio agricolo locale.",
+    guide_credit:"Basato sulle pratiche agricole comuni. Conferma con l'ufficio agricolo locale.",
   },
   ja: {
     title:"☘ クロップセンス", subtitle:"AI作物推奨システム",
@@ -361,6 +374,7 @@ const TRANSLATIONS = {
     ph_low:"この作物には土が酸性すぎます。石灰が役立つ場合があります。", ph_high:"この作物には土がアルカリ性すぎます。石膏や有機物が役立つ場合があります。",
     advice_high:"この作物にはすでに多めです。これ以上は施さないでください。", advice_ok:"土壌の値はこの作物に適しています。",
     advice_note:"当サイトのデータにあるこの作物の一般的な値に基づく目安で、ラボ検査ではありません。地域の農業事務所で確かめてください。",
+    guide_credit:"一般的な栽培方法に基づいています。地域の農業事務所で確かめてください。",
   },
   zh: {
     title:"☘ 农感", subtitle:"AI驱动的作物推荐系统",
@@ -386,6 +400,7 @@ const TRANSLATIONS = {
     ph_low:"土壤对这种作物来说偏酸。施石灰可能有帮助。", ph_high:"土壤对这种作物来说偏碱。施石膏或有机质可能有帮助。",
     advice_high:"对这种作物来说已经偏高，请不要再施。", advice_ok:"您的土壤数值适合这种作物。",
     advice_note:"依据我们数据中这种作物的常见数值，并非实验室检测。请向当地农业部门确认。",
+    guide_credit:"依据常规农业做法编写。请向当地农业部门确认。",
   },
   ru: {
     title:"☘ КропСенс", subtitle:"Рекомендации по культурам на основе ИИ",
@@ -411,6 +426,7 @@ const TRANSLATIONS = {
     ph_low:"Почва слишком кислая для этой культуры. Может помочь известь.", ph_high:"Почва слишком щелочная для этой культуры. Может помочь гипс или органика.",
     advice_high:"Для этой культуры уже много. Больше не вносите.", advice_ok:"Показатели вашей почвы подходят для этой культуры.",
     advice_note:"Основано на типичных значениях для этой культуры в наших данных, это не лабораторный анализ. Уточните в местном сельскохозяйственном управлении.",
+    guide_credit:"Основано на обычной сельскохозяйственной практике. Уточните в местном сельскохозяйственном управлении.",
   },
   fr: {
     title:"☘ CropSense", subtitle:"Recommandation de cultures basée sur l'IA",
@@ -436,6 +452,7 @@ const TRANSLATIONS = {
     ph_low:"Le sol est trop acide pour cette culture. La chaux peut aider.", ph_high:"Le sol est trop alcalin pour cette culture. Le gypse ou la matière organique peuvent aider.",
     advice_high:"Déjà élevé pour cette culture. N'en ajoutez pas plus.", advice_ok:"Les valeurs de votre sol conviennent à cette culture.",
     advice_note:"Basé sur les valeurs habituelles de cette culture dans nos données, ce n'est pas une analyse de laboratoire. Confirmez auprès de votre bureau agricole local.",
+    guide_credit:"Basé sur les pratiques agricoles courantes. Confirmez auprès de votre bureau agricole local.",
   },
   es: {
     title:"☘ CropSense", subtitle:"Recomendación de cultivos basada en IA",
@@ -461,6 +478,7 @@ const TRANSLATIONS = {
     ph_low:"El suelo es demasiado ácido para este cultivo. La cal puede ayudar.", ph_high:"El suelo es demasiado alcalino para este cultivo. El yeso o la materia orgánica pueden ayudar.",
     advice_high:"Ya es alto para este cultivo. No añadas más.", advice_ok:"Los valores de tu suelo son adecuados para este cultivo.",
     advice_note:"Basado en los valores habituales de este cultivo en nuestros datos, no es un análisis de laboratorio. Confírmalo con tu oficina agrícola local.",
+    guide_credit:"Basado en las prácticas agrícolas habituales. Confírmalo con tu oficina agrícola local.",
   },
   ar: {
     title:"☘ كروب‌سينس", subtitle:"توصية المحاصيل بالذكاء الاصطناعي",
@@ -486,6 +504,7 @@ const TRANSLATIONS = {
     ph_low:"التربة شديدة الحموضة لهذا المحصول. قد يساعد الجير.", ph_high:"التربة شديدة القلوية لهذا المحصول. قد يساعد الجبس أو المادة العضوية.",
     advice_high:"مرتفع بالفعل لهذا المحصول. لا تضف المزيد.", advice_ok:"قيم تربتك مناسبة لهذا المحصول.",
     advice_note:"مبني على القيم المعتادة لهذا المحصول في بياناتنا وليس فحصًا مخبريًا. تأكد من مكتب الزراعة المحلي.",
+    guide_credit:"مبني على الممارسات الزراعية المعتادة. تأكد من مكتب الزراعة المحلي.",
   },
   pt: {
     title:"☘ CropSense", subtitle:"Recomendação de culturas baseada em IA",
@@ -511,6 +530,7 @@ const TRANSLATIONS = {
     ph_low:"O solo está ácido demais para esta cultura. O calcário pode ajudar.", ph_high:"O solo está alcalino demais para esta cultura. Gesso ou matéria orgânica podem ajudar.",
     advice_high:"Já está alto para esta cultura. Não adicione mais.", advice_ok:"Os valores do seu solo são adequados para esta cultura.",
     advice_note:"Baseado nos valores típicos desta cultura em nossos dados, não é uma análise de laboratório. Confirme com o órgão agrícola local.",
+    guide_credit:"Baseado nas práticas agrícolas comuns. Confirme com o órgão agrícola local.",
   },
   ko: {
     title:"☘ 크롭센스", subtitle:"AI 기반 작물 추천 시스템",
@@ -536,6 +556,7 @@ const TRANSLATIONS = {
     ph_low:"이 작물에는 토양이 너무 산성입니다. 석회가 도움이 될 수 있습니다.", ph_high:"이 작물에는 토양이 너무 알칼리성입니다. 석고나 유기물이 도움이 될 수 있습니다.",
     advice_high:"이 작물에는 이미 높습니다. 더 주지 마세요.", advice_ok:"토양 값이 이 작물에 적합합니다.",
     advice_note:"저희 데이터에 있는 이 작물의 일반적인 값을 바탕으로 한 것이며 실험실 검사는 아닙니다. 지역 농업 기관에 문의해 확인하세요.",
+    guide_credit:"일반적인 재배 방식을 바탕으로 합니다. 지역 농업 기관에 문의해 확인하세요.",
   }
 };
 

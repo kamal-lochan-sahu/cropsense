@@ -35,8 +35,35 @@ test('the guide shows six labelled rows, a tip and the AI notice', async (t) => 
     ['Season', 'Soil', 'Water', 'Fertilizer', 'Pests', 'Harvest']);
   assert.ok(panel.textContent.includes(GUIDE.season));
   assert.ok(panel.querySelector('.learn-tip').textContent.includes(GUIDE.tip));
-  assert.equal(panel.querySelector('.ai-credit').textContent, app.page('TRANSLATIONS').en.ai_credit);
+  assert.equal(panel.querySelector('.ai-credit').textContent, app.page('TRANSLATIONS').en.ai_credit); // no source given: treated as AI
   assert.match(panel.querySelector('h2').textContent, /Rice/);
+});
+
+test('a curated guide carries the standard-practice note, not the AI note', async (t) => {
+  const app = await withApp(t, {
+    fetch: async () => jsonResponse(200, { guide: JSON.stringify(GUIDE), cached: false, source: 'curated' }),
+  });
+  await app.page('showGuide')('rice');
+  const en = app.page('TRANSLATIONS').en;
+  assert.equal(app.$('learn-panel').querySelector('.ai-credit').textContent, en.guide_credit);
+  assert.notEqual(en.guide_credit, en.ai_credit);
+});
+
+test('an AI-generated guide keeps the AI note', async (t) => {
+  const app = await withApp(t, {
+    fetch: async () => jsonResponse(200, { guide: JSON.stringify(GUIDE), cached: false, source: 'ai' }),
+  });
+  await app.page('showGuide')('rice');
+  assert.equal(app.$('learn-panel').querySelector('.ai-credit').textContent, app.page('TRANSLATIONS').en.ai_credit);
+});
+
+test('the note follows the selected language', async (t) => {
+  const app = await withApp(t, {
+    fetch: async () => jsonResponse(200, { guide: JSON.stringify(GUIDE), cached: false, source: 'curated' }),
+  });
+  app.page('applyLang')('de');
+  await app.page('showGuide')('rice');
+  assert.equal(app.$('learn-panel').querySelector('.ai-credit').textContent, app.page('TRANSLATIONS').de.guide_credit);
 });
 
 test('the guide request carries the crop and the current language', async (t) => {
