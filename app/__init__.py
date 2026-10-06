@@ -14,7 +14,7 @@ from .config import Config
 from .ml.advice import Advisor
 from .ml.predictor import Predictor
 from .routes import API_PATHS, bp
-from .services.guides import GuideService
+from .services.guides import GuideService, load_curated
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +35,7 @@ def create_app(test_config: dict[str, Any] | None = None) -> Flask:
         timeout=app.config["GROQ_TIMEOUT"],
         cache_size=app.config["GUIDE_CACHE_SIZE"],
         allowed_crops=predictor.classes,
+        curated=load_curated(app.config["GUIDES_DIR"]),
     )
 
     app.config.setdefault("ASSET_VERSION", _asset_version(app))

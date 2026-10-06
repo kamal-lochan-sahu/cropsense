@@ -9,7 +9,12 @@ def test_home_page(client):
 
 def test_health(client):
     body = client.get("/health").get_json()
-    assert body == {"status": "ok", "model_loaded": True, "guides_configured": True}
+    assert body == {
+        "status": "ok",
+        "model_loaded": True,
+        "guides_configured": True,
+        "guides_curated": ["en"],
+    }
 
 
 def test_security_headers(client):

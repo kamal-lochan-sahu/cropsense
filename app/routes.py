@@ -53,6 +53,7 @@ def health():
         status="ok",
         model_loaded=True,
         guides_configured=current_app.extensions["guides"].configured,
+        guides_curated=current_app.extensions["guides"].curated_languages,
     )
 
 
@@ -87,7 +88,7 @@ def crop_guide():
         return _error("crop and lang must be strings", 400)
 
     try:
-        guide, cached = current_app.extensions["guides"].get(crop, lang)
+        guide, cached, source = current_app.extensions["guides"].get(crop, lang)
     except GuideError as exc:
         return _error(exc.message, exc.status)
-    return jsonify(guide=guide, cached=cached)
+    return jsonify(guide=guide, cached=cached, source=source)

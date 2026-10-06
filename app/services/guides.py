@@ -1,4 +1,9 @@
-"""Growing guides generated through the Groq API, with model fallback and a bounded cache."""
+"""Growing guides: curated content shipped with the app, with the Groq API as a fallback.
+
+Languages that have a file in app/content/guides/ are served from it, instantly and without any
+external service. Other languages are generated through the Groq API (model fallback,
+bounded cache).
+"""
 
 from __future__ import annotations
 
@@ -7,7 +12,8 @@ import logging
 import re
 import threading
 from collections import OrderedDict
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
+from pathlib import Path
 
 import requests
 
@@ -39,6 +45,35 @@ Respond ONLY with valid JSON (no markdown, no preamble) in this exact structure:
 }}
 
 Keep each field to 1-2 short sentences. Write everything in {language}, including all field values. Respond with ONLY the JSON object, nothing else."""  # noqa: E501
+
+
+def load_curated(directory: str | Path) -> dict[str, dict[str, dict[str, str]]]:
+    """Read curated guides: one <lang>.json per language, {crop: {season: ..., ..., tip: ...}}.
+
+    Raises ValueError on a malformed file, so a bad guide is caught at startup and never
+    reaches a farmer.
+    """
+    curated: dict[str, dict[str, dict[str, str]]] = {}
+    for path in sorted(Path(directory).glob("*.json")):
+        lang = path.stem
+        if lang not in LANG_NAMES:
+            raise ValueError(f"{path.name}: unknown language code")
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            raise ValueError(f"{path.name}: expected an object of crops")
+        crops: dict[str, dict[str, str]] = {}
+        for crop, guide in data.items():
+            if not isinstance(guide, dict):
+                raise ValueError(f"{path.name}: {crop} is not an object")
+            clean = {}
+            for key in GUIDE_KEYS:
+                value = guide.get(key)
+                if not isinstance(value, str) or not value.strip():
+                    raise ValueError(f"{path.name}: {crop} is missing '{key}'")
+                clean[key] = _clean_text(value)
+            crops[crop] = clean
+        curated[lang] = crops
+    return curated
 
 
 class GuideError(Exception):
@@ -87,6 +122,7 @@ class GuideService:
         timeout: float,
         cache_size: int,
         allowed_crops: Iterable[str],
+        curated: Mapping[str, Mapping[str, Mapping[str, str]]] | None = None,
     ):
         self._api_key = api_key
         self._models = [m for m in models if m]
@@ -94,6 +130,7 @@ class GuideService:
         self._timeout = timeout
         self._cache_size = cache_size
         self._allowed_crops = frozenset(allowed_crops)
+        self._curated = curated or {}
         self._cache: OrderedDict[tuple[str, str], str] = OrderedDict()
         self._lock = threading.Lock()
 
@@ -101,13 +138,22 @@ class GuideService:
     def configured(self) -> bool:
         return bool(self._api_key and self._models)
 
-    def get(self, crop: str, lang: str) -> tuple[str, bool]:
-        """Return (guide_json, served_from_cache)."""
+    @property
+    def curated_languages(self) -> list[str]:
+        return sorted(self._curated)
+
+    def get(self, crop: str, lang: str) -> tuple[str, bool, str]:
+        """Return (guide_json, served_from_cache, source) where source is 'curated' or 'ai'."""
         crop_key = crop.strip().lower()
         if crop_key not in self._allowed_crops:
             raise GuideError("unknown crop", 400)
         if lang not in LANG_NAMES:
             raise GuideError("unsupported language", 400)
+
+        curated = self._curated.get(lang, {}).get(crop_key)
+        if curated is not None:
+            return json.dumps(curated, ensure_ascii=False), False, "curated"
+
         if not self.configured:
             raise GuideError("guide service is not configured", 503)
 
@@ -116,7 +162,7 @@ class GuideService:
             cached = self._cache.get(key)
             if cached is not None:
                 self._cache.move_to_end(key)
-                return cached, True
+                return cached, True, "ai"
 
         guide = self._generate(crop_key, lang)
 
@@ -125,7 +171,7 @@ class GuideService:
             self._cache.move_to_end(key)
             while len(self._cache) > self._cache_size:
                 self._cache.popitem(last=False)
-        return guide, False
+        return guide, False, "ai"
 
     def _generate(self, crop: str, lang: str) -> str:
         prompt = PROMPT_TEMPLATE.format(crop=crop, language=LANG_NAMES[lang])

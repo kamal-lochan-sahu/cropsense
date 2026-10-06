@@ -1,0 +1,200 @@
+{
+  "rice": {
+    "season": "Kharif: sow the nursery in June and transplant 25 to 30 day old seedlings in July. A rabi or summer crop is also possible where irrigation is assured.",
+    "soil": "Clay or clay loam that holds water, pH 5.5 to 7. Level the field well so water stays even.",
+    "water": "Keep about 5 cm of standing water from transplanting to flowering. Drain the field about 10 days before harvest.",
+    "fertilizer": "Give nitrogen in three splits: at transplanting, at tillering and at panicle start. Apply phosphorus and potash once as a basal dose.",
+    "pests": "Watch for stem borer, brown planthopper and blast disease. Use healthy seed, balanced nitrogen and clean bunds.",
+    "harvest": "Ready 110 to 150 days after sowing when about 80% of the grains turn straw yellow. Harvest before grains start to shatter.",
+    "tip": "Transplant young seedlings in straight rows, 1 or 2 per hill, for better tillering and easier weeding."
+  },
+  "maize": {
+    "season": "Kharif (June to July) in most areas. Rabi (October to November) and spring sowing also work where irrigation is available.",
+    "soil": "Fertile, well-drained loam, pH 5.8 to 7. Even a day or two of waterlogging harms young plants.",
+    "water": "Needs regular moisture, especially at knee-high stage, tasseling and grain filling. Never let the field flood.",
+    "fertilizer": "Apply nitrogen in two or three splits (sowing, knee-high, tasseling) and phosphorus and potash at sowing. Add farmyard manure before sowing.",
+    "pests": "Fall armyworm, stem borer and leaf blights are common. Check the leaf whorls every week and destroy egg masses early.",
+    "harvest": "Harvest 90 to 120 days after sowing when husks dry and kernels are hard. Dry cobs well before storage.",
+    "tip": "Sow in rows about 60 x 20 cm apart and earth up around plants at knee-high stage to stop them falling over."
+  },
+  "chickpea": {
+    "season": "Rabi: sow from mid-October to mid-November after the monsoon, using the moisture stored in the soil.",
+    "soil": "Well-drained loam or sandy loam, pH 6 to 8. Avoid waterlogged or salty fields.",
+    "water": "Usually grown on stored soil moisture. One or two light irrigations at branching and pod filling help; too much water lowers yield.",
+    "fertilizer": "Needs little nitrogen because it makes its own. Apply phosphorus at sowing and treat the seed with Rhizobium culture.",
+    "pests": "Pod borer and wilt are the main problems. Use wilt-resistant varieties, treat the seed and set up bird perches.",
+    "harvest": "Harvest 100 to 140 days after sowing when leaves turn yellow-brown and pods rattle when shaken.",
+    "tip": "Pinch off the tips of the main shoots 30 to 40 days after sowing to get more branches and pods."
+  },
+  "kidneybeans": {
+    "season": "A cool-season crop: sow in October to November in the plains, and from March to June in the hills.",
+    "soil": "Well-drained loam rich in organic matter, pH 5.5 to 6.5. It does not tolerate waterlogging or salty soil.",
+    "water": "Irrigate lightly at flowering and pod formation. Avoid wet soil at sowing because seeds can rot.",
+    "fertilizer": "Apply phosphorus and a small dose of nitrogen at sowing and treat the seed with Rhizobium. Too much nitrogen gives leaves but few pods.",
+    "pests": "Watch for aphids, pod borer, rust and anthracnose. Use clean seed and rotate with cereals.",
+    "harvest": "Harvest 90 to 120 days after sowing when pods turn yellow and dry. Thresh only when plants are fully dry.",
+    "tip": "Sow in rows 30 to 45 cm apart so air moves between plants and disease stays low."
+  },
+  "pigeonpeas": {
+    "season": "Kharif: sow in June to July with the first monsoon rains.",
+    "soil": "Well-drained loam or black soil, pH 6.5 to 7.5. Waterlogging can kill the crop.",
+    "water": "Mostly rain-fed. Irrigate at flowering and pod filling if there is a long dry spell.",
+    "fertilizer": "Needs only a small starter dose of nitrogen with phosphorus at sowing. Use Rhizobium-treated seed.",
+    "pests": "Pod borer, pod fly and wilt are common. Use resistant varieties and do not grow it on the same field every year.",
+    "harvest": "Harvest 150 to 280 days after sowing, depending on the variety, when about 75 to 80% of pods turn brown.",
+    "tip": "Intercrop with a short-duration crop such as green gram or sorghum to earn income while pigeon pea grows slowly."
+  },
+  "mothbeans": {
+    "season": "Kharif: sow in July with the first monsoon rains. It suits dry regions such as Rajasthan.",
+    "soil": "Light sandy or sandy loam soil, pH 6 to 8. It grows in poor, dry soils but not in waterlogged ones.",
+    "water": "Very drought hardy and usually rain-fed. Give one irrigation at flowering only if a long dry spell occurs.",
+    "fertilizer": "A small dose of phosphorus at sowing is enough. Seed treatment with Rhizobium helps; extra nitrogen is rarely needed.",
+    "pests": "Yellow mosaic virus, leaf spots and aphids occur. Use resistant varieties and control whitefly.",
+    "harvest": "Harvest 60 to 90 days after sowing when most pods turn brown.",
+    "tip": "Sow in rows 30 to 45 cm apart and weed once at about 20 days. It uses very little water and fits dry farms."
+  },
+  "mungbean": {
+    "season": "Kharif (June to July), or summer (March to April) where irrigated. It matures in about 60 to 70 days.",
+    "soil": "Well-drained loam or sandy loam, pH 6.2 to 7.2. Avoid waterlogged and salty soil.",
+    "water": "Needs little water: one or two irrigations in summer, at flowering and pod filling. Stop irrigating once pods mature.",
+    "fertilizer": "Apply phosphorus at sowing and treat the seed with Rhizobium. It makes its own nitrogen, so avoid extra urea.",
+    "pests": "Yellow mosaic virus spread by whitefly is the main risk, along with aphids and leaf spot. Choose resistant varieties and remove infected plants.",
+    "harvest": "Pick pods when they turn black or brown, in two or three pickings, 60 to 70 days after sowing.",
+    "tip": "Grow it as a short rotation crop between cereals. It adds nitrogen to the soil for the next crop."
+  },
+  "blackgram": {
+    "season": "Kharif (June to July), or summer (February to March) where irrigated.",
+    "soil": "Well-drained clay loam or loam, pH 6.5 to 7.8. Avoid waterlogged fields.",
+    "water": "Mostly rain-fed. Irrigate at flowering and pod filling if rain fails, and drain extra water quickly.",
+    "fertilizer": "Apply phosphorus at sowing and treat the seed with Rhizobium. Skip heavy nitrogen.",
+    "pests": "Yellow mosaic virus, powdery mildew and leaf spots are common. Use resistant varieties and control whitefly early.",
+    "harvest": "Harvest 70 to 90 days after sowing when most pods turn black and dry.",
+    "tip": "Keep the field weed-free for the first 30 days, since young plants grow slowly."
+  },
+  "lentil": {
+    "season": "Rabi: sow in late October to November and harvest in March to April.",
+    "soil": "Well-drained loam to clay loam, pH 6 to 8. It dislikes waterlogging and strongly acidic soil.",
+    "water": "Grown mostly on stored moisture. One or two light irrigations at branching and pod filling raise yield.",
+    "fertilizer": "Apply phosphorus at sowing and treat the seed with Rhizobium. Very little nitrogen is needed.",
+    "pests": "Watch for aphids, pod borer, rust and wilt. Use treated seed and resistant varieties, and rotate crops.",
+    "harvest": "Harvest 100 to 130 days after sowing when leaves and pods turn yellow-brown. Cut early in the day to reduce shattering.",
+    "tip": "Sow right after the paddy harvest on the leftover moisture to save time and irrigation."
+  },
+  "pomegranate": {
+    "season": "Plant saplings in July to August or February to March. Choose the flowering season (bahar) by water availability.",
+    "soil": "Well-drained sandy loam or loam, pH 6.5 to 7.5. It tolerates some salt but not waterlogging.",
+    "water": "Drip irrigation works best. Keep moisture steady during fruit growth, because sudden swings split the fruits.",
+    "fertilizer": "Give farmyard manure at planting and every year, with nitrogen, phosphorus and potash split across the year. Add zinc and boron if leaves show deficiency.",
+    "pests": "Bacterial blight, fruit borer and thrips are common. Remove infected fruits, prune for airflow and avoid overhead watering.",
+    "harvest": "Fruits are ready 5 to 6 months after flowering when the skin turns slightly yellow-red and gives a metallic sound when tapped.",
+    "tip": "Prune lightly after harvest and keep the orchard clean to reduce bacterial blight."
+  },
+  "banana": {
+    "season": "Plant suckers or tissue-culture plants from June to August, or in February to March. Avoid peak winter and peak heat.",
+    "soil": "Deep, well-drained, fertile loam rich in organic matter, pH 6 to 7.5. Waterlogged or very sandy soil gives poor bunches.",
+    "water": "Needs regular water: about every 3 to 5 days in summer and weekly in cool weather. Drip irrigation saves water.",
+    "fertilizer": "A heavy feeder of potassium and nitrogen. Apply in small splits from the second month until flowering, with plenty of compost.",
+    "pests": "Panama wilt, sigatoka leaf spot, rhizome weevil and nematodes are common. Plant disease-free tissue-culture plants and remove diseased leaves.",
+    "harvest": "The bunch is ready 11 to 14 months after planting when the fingers turn round and lose their angles.",
+    "tip": "Keep only one follower sucker per plant, remove the extra ones, and prop the plant so heavy bunches do not fall in the wind."
+  },
+  "mango": {
+    "season": "Plant grafted saplings in July to September with the monsoon. Trees flower in winter and fruit ripens from April to July.",
+    "soil": "Deep, well-drained loam or alluvial soil, pH 5.5 to 7.5. Avoid waterlogged and shallow rocky soil.",
+    "water": "Water young trees weekly in dry months. Mature trees need little water just before and during flowering; irrigate again after fruit set.",
+    "fertilizer": "Apply farmyard manure and NPK around the edge of the canopy every year after harvest. Add zinc or boron if needed.",
+    "pests": "Mango hopper, powdery mildew, anthracnose and fruit fly are common. Keep the orchard clean and spray at flowering as local experts advise.",
+    "harvest": "Fruits mature 100 to 150 days after fruit set. Pick when the shoulders are full and a few fruits ripen naturally, leaving a short stalk.",
+    "tip": "Prune dead branches and thin dense growth after harvest so sunlight and air reduce disease and improve fruit size."
+  },
+  "grapes": {
+    "season": "Plant rooted cuttings in the cool months. In peninsular India vines are pruned twice: for growth in April and for fruit in October, with harvest from February to April.",
+    "soil": "Well-drained sandy loam or gravelly soil, pH 6.5 to 7.5. Poor drainage and high salts harm the roots.",
+    "water": "Use drip irrigation. Give regular water during shoot and berry growth and reduce it near ripening to improve sweetness.",
+    "fertilizer": "Apply farmyard manure after pruning and balanced NPK in stages, with extra potash while berries develop.",
+    "pests": "Downy and powdery mildew, thrips and mealybugs are common. Train vines for good airflow and spray preventively as local experts advise.",
+    "harvest": "Pick bunches when berries are fully coloured and taste sweet and the stalk starts to brown. Cut in the cool morning.",
+    "tip": "Thin bunches and remove extra shoots so the remaining berries grow bigger and leaves dry faster."
+  },
+  "watermelon": {
+    "season": "Sow in January to March for a summer crop, or October to December in warm regions.",
+    "soil": "Well-drained sandy loam rich in organic matter, pH 6 to 7. Heavy clay and waterlogging cause rot.",
+    "water": "Water regularly during vine growth and flowering, then reduce water as fruits ripen to keep them sweet.",
+    "fertilizer": "Apply farmyard manure and phosphorus at sowing, then split nitrogen and potash during vine growth and fruit set.",
+    "pests": "Fruit fly, red pumpkin beetle, powdery mildew and fusarium wilt are common. Use mulch and resistant varieties, and do not repeat melons on the same field.",
+    "harvest": "Ready 75 to 100 days after sowing when the tendril near the fruit dries, the underside turns creamy yellow and tapping gives a dull sound.",
+    "tip": "Spread plastic or straw mulch under the vines to keep fruits clean, hold down weeds and save water."
+  },
+  "muskmelon": {
+    "season": "Sow in January to March for summer fruit. In warm regions it can also be sown in November to December.",
+    "soil": "Well-drained sandy loam, pH 6 to 7.5. Avoid waterlogged and salty fields.",
+    "water": "Give regular light irrigation during growth and flowering. Reduce water near ripening to improve sweetness and avoid cracking.",
+    "fertilizer": "Apply farmyard manure and phosphorus at sowing, then split nitrogen and potash during vine growth.",
+    "pests": "Fruit fly, aphids, powdery mildew and downy mildew are common. Use mulch, fruit fly traps and resistant varieties.",
+    "harvest": "Ready 80 to 100 days after sowing when the stem slips easily from the fruit and it smells sweet.",
+    "tip": "Keep fruits off wet soil with straw or mulch to avoid rot and get even colour."
+  },
+  "apple": {
+    "season": "Plant dormant grafted saplings in winter (December to February) in cool hills. Trees flower in spring and fruit is picked from July to October.",
+    "soil": "Deep, well-drained loam, pH 5.5 to 6.5. It needs cold winters and does not tolerate waterlogging.",
+    "water": "Water young trees in dry spells and during fruit growth. Never let water stand around the trunk.",
+    "fertilizer": "Apply well-rotted manure in winter and split NPK in spring and after fruit set. Add calcium and boron if fruits show bitter pit or poor set.",
+    "pests": "Apple scab, woolly aphid, codling moth and root rot are common. Prune for light and air and follow the local spray schedule.",
+    "harvest": "Pick when seeds turn brown, the fruit separates with a gentle twist and the colour is full for the variety.",
+    "tip": "Prune in winter to an open shape and thin extra fruitlets so the remaining apples grow larger and the tree bears every year."
+  },
+  "orange": {
+    "season": "Plant in July to September with the monsoon, or in February to March. The main harvest is in winter, depending on variety and region.",
+    "soil": "Well-drained loam or sandy loam, pH 5.5 to 7.5. Waterlogging causes gummosis and root rot.",
+    "water": "Irrigate every 7 to 15 days in dry months and keep water off the trunk. Dry stress at flowering and fruit set cuts yield.",
+    "fertilizer": "Give farmyard manure every year and split nitrogen, phosphorus and potash into two or three doses. Add zinc and iron if leaves turn yellow with green veins.",
+    "pests": "Citrus canker, greening disease, leaf miner and psylla are common. Plant disease-free saplings and remove infected twigs.",
+    "harvest": "Pick when the fruit has full colour and the right sweetness for the variety, about 8 to 10 months after flowering. Clip fruits with a short stalk.",
+    "tip": "Keep the graft union at least 30 cm above the ground and the trunk base dry to avoid gummosis."
+  },
+  "papaya": {
+    "season": "Transplant seedlings in February to March or September to October, when there is no frost and no heavy rain.",
+    "soil": "Well-drained fertile loam, pH 6 to 7. It dies quickly in waterlogged soil, so use raised beds where drainage is poor.",
+    "water": "Water every 5 to 7 days in dry months and never let water stand near the stem.",
+    "fertilizer": "Feed small doses of nitrogen, phosphorus and potash every two months, along with compost. It responds well to regular feeding.",
+    "pests": "Papaya ringspot virus, mealybugs, whitefly and root rot are common. Control insects, remove infected plants early and start with healthy seedlings.",
+    "harvest": "Start picking 9 to 11 months after planting when the fruit shows a yellow streak on the skin.",
+    "tip": "Plant 2 or 3 seedlings per pit and, once the sex of the plants is clear, keep the female or bisexual plant and remove the extras."
+  },
+  "coconut": {
+    "season": "Plant seedlings from June to September with the monsoon. With irrigation, any time except peak summer works.",
+    "soil": "Deep, well-drained sandy loam, coastal or laterite soil, pH 5.2 to 8. Avoid long waterlogging.",
+    "water": "Needs regular water. In dry months irrigate adult palms every 4 to 7 days by basin or drip.",
+    "fertilizer": "Apply organic manure and NPK in split doses every year. Potash is especially important for nut yield.",
+    "pests": "Rhinoceros beetle, red palm weevil, eriophyid mite and bud rot occur. Keep the crown clean and use pheromone traps as local experts advise.",
+    "harvest": "Nuts are ready 11 to 12 months after the flower opens. Harvest every 45 to 60 days.",
+    "tip": "Mulch the basin with coconut husk and leaves to hold moisture and add organic matter."
+  },
+  "cotton": {
+    "season": "Kharif: sow in May to June where irrigated, or in June to July with the monsoon in rain-fed areas.",
+    "soil": "Deep black soil or well-drained loam, pH 6 to 8. Waterlogging and shallow soil reduce yield.",
+    "water": "Irrigate at square formation, flowering and boll development, and avoid water stress at those stages. Drip saves water.",
+    "fertilizer": "Apply nitrogen in two or three splits, and phosphorus and potash at sowing. Add farmyard manure before sowing.",
+    "pests": "Pink bollworm, whitefly, aphids, jassids and leaf curl virus are common. Scout every week, use pheromone traps and avoid late sowing.",
+    "harvest": "Pick fully opened bolls in two or three rounds, from about 150 to 180 days after sowing, on dry days.",
+    "tip": "Rotate crops and destroy crop residue after the last picking to cut down pink bollworm."
+  },
+  "jute": {
+    "season": "Sow from March to May, when pre-monsoon showers arrive, and harvest in July to September.",
+    "soil": "Fertile sandy loam to clay loam of river plains, pH 6 to 7.5. Long waterlogging early on harms seedlings.",
+    "water": "Needs warm, humid weather and good rainfall. Irrigate if rain fails in the first month and keep moisture steady.",
+    "fertilizer": "Apply farmyard manure at land preparation and split nitrogen along with phosphorus and potash.",
+    "pests": "Stem weevil, hairy caterpillar, yellow mite and stem rot are common. Thin the plants and weed two or three times.",
+    "harvest": "Cut plants at 100 to 120 days, when flowers fall and pods form. Ret the bundles in clean, slow water for 10 to 20 days, then strip the fibre.",
+    "tip": "Thin seedlings to about 5 to 7 cm apart within three weeks of sowing. Crowded plants give weak fibre."
+  },
+  "coffee": {
+    "season": "Plant seedlings with the monsoon (June to August) under shade. Arabica is harvested from November to February.",
+    "soil": "Fertile, well-drained, slightly acidic loam rich in organic matter, pH 6 to 6.5, on hill slopes with good drainage. Avoid waterlogging.",
+    "water": "Needs well-spread rain. Blossom showers or sprinklers in February to March trigger flowering, and mulch holds moisture.",
+    "fertilizer": "Apply compost and split NPK before and after the monsoon. Add lime if the soil is too acidic.",
+    "pests": "White stem borer, berry borer and leaf rust are the main problems. Keep shade, prune and remove borer-affected stems as local experts advise.",
+    "harvest": "Pick ripe red cherries by hand in rounds and process them quickly to keep quality.",
+    "tip": "Keep shade trees such as silver oak and prune bushes to an open frame so air and light reach them."
+  }
+}

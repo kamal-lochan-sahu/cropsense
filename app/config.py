@@ -18,6 +18,7 @@ def _env(name: str, default: str = "") -> str:
 class Config:
     MODEL_PATH = str(BASE_DIR / "models" / "model.pkl")
     CROP_PROFILES_PATH = str(BASE_DIR / "models" / "crop_profiles.json")
+    GUIDES_DIR = str(BASE_DIR / "app" / "content" / "guides")
 
     # Growing guides (Groq). Groq retires models regularly, so models are configurable
     # and a fallback chain is tried in order.
