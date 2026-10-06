@@ -14,7 +14,7 @@ own language.
 - Top-3 suggestions with confidence bars, and a warning when inputs fall outside the range the model was trained on
 - Soil advice for the recommended crop: N, P, K and pH marked low / good / high against the crop's typical values, with fertilizer hints (computed locally from the training data, no external API)
 - Accessible form: visible labels, decimal input, inline per-field errors, clear error states
-- Growing guides (season, soil, water, fertilizer, pests, harvest, tip) in 21 languages
+- Growing guides (season, soil, water, fertilizer, pests, harvest, tip): curated content for every crop, shipped with the app (English now, more languages being added); languages without curated content fall back to AI generation via Groq
 - Multilingual UI in 21 languages with RTL support (Arabic): opens in English; the user can choose a language or follow their region (the region lookup only runs after tapping Auto)
 - Installable PWA: root-scope service worker with a versioned cache (no stale files after a deploy), real icons
 - Strict Content-Security-Policy; server and LLM text is never parsed as HTML
@@ -49,7 +49,7 @@ flask --app wsgi run --debug         # http://127.0.0.1:5000
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `GROQ_API_KEY` | For growing guides | Free key from https://console.groq.com |
+| `GROQ_API_KEY` | Only for guides in languages without curated content | Free key from https://console.groq.com |
 | `GROQ_MODEL` | No | Primary model, defaults to `openai/gpt-oss-120b` |
 | `GROQ_FALLBACK_MODELS` | No | Comma-separated fallbacks, defaults to `qwen/qwen3.8-27b` |
 
@@ -87,7 +87,7 @@ The ranges live in `models/crop_profiles.json`, built by `scripts/build_crop_pro
 Invalid input returns `422` with per-field errors. Values that are valid but outside the
 training range still return `200` with a `warnings` list.
 
-`POST /crop-guide` takes `{"crop": "rice", "lang": "hi"}` and returns `{"guide": "<json>", "cached": false}`.
+`POST /crop-guide` takes `{"crop": "rice", "lang": "hi"}` and returns `{"guide": "<json>", "cached": false, "source": "curated"}`. `source` is `curated` for the guides in `app/content/guides/<lang>.json` (no external call, works without an API key) and `ai` for guides generated through Groq.
 Only the 22 known crops and the supported language codes are accepted.
 
 ## Project structure
@@ -101,7 +101,8 @@ cropsense/
 │   ├── validation.py      Input ranges and validation
 │   ├── ml/predictor.py    Model loading and prediction
 │   ├── ml/advice.py       Soil advice from the crop profiles
-│   ├── services/guides.py Groq guide generation, fallback chain, cache
+│   ├── services/guides.py Curated guides, Groq fallback chain, cache
+│   ├── content/guides/    Curated growing guides, one <lang>.json per language
 │   ├── static/
 │   │   ├── css/           Styles
 │   │   ├── js/            app.js (logic), translations.js (21 languages)
