@@ -14,6 +14,8 @@ from app.services.guides import (
 )
 
 GUIDES_DIR = Path(__file__).resolve().parent.parent / "app" / "content" / "guides"
+# A language without curated content, so the Groq fallback stays covered.
+UNCURATED = next(lang for lang in LANG_NAMES if lang not in load_curated(GUIDES_DIR))
 
 
 def ask(client, crop="rice", lang="en"):
@@ -65,6 +67,15 @@ def test_curated_guides_work_without_a_groq_key(config):
     assert ask(client, crop="mango").status_code == 200
 
 
+@pytest.mark.parametrize("lang", ["hi", "or"])
+def test_hindi_and_odia_are_served_from_curated_content(client, lang):
+    body = ask(client, lang=lang).get_json()  # no network allowed, so this cannot be the AI
+    assert body["source"] == "curated"
+    guide = json.loads(body["guide"])
+    assert guide != json.loads(ask(client, lang="en").get_json()["guide"])
+    assert not any(ch.isascii() and ch.isalpha() for ch in guide["season"].replace("pH", ""))
+
+
 def test_crop_name_is_normalised(client):
     assert ask(client, crop=" Rice ").get_json()["source"] == "curated"
 
@@ -82,15 +93,15 @@ def test_language_without_curated_guide_still_uses_the_ai(client, monkeypatch):
             return {"choices": [{"message": {"content": json.dumps(guide)}}]}
 
     monkeypatch.setattr(requests, "post", lambda *args, **kwargs: Response())
-    body = ask(client, lang="hi").get_json()
+    body = ask(client, lang=UNCURATED).get_json()
     assert body["source"] == "ai"
     assert body["cached"] is False
-    assert ask(client, lang="hi").get_json()["cached"] is True
+    assert ask(client, lang=UNCURATED).get_json()["cached"] is True
 
 
 def test_language_without_curated_guide_and_without_key_is_unavailable(config):
     config["GROQ_API_KEY"] = ""
-    assert ask(create_app(config).test_client(), lang="hi").status_code == 503
+    assert ask(create_app(config).test_client(), lang=UNCURATED).status_code == 503
 
 
 def test_health_lists_curated_languages(client, curated):

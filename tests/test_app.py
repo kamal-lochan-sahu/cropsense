@@ -1,4 +1,8 @@
+from pathlib import Path
+
 import app as app_package
+
+GUIDES_DIR = Path(__file__).resolve().parent.parent / "app" / "content" / "guides"
 
 
 def test_home_page(client):
@@ -13,7 +17,7 @@ def test_health(client):
         "status": "ok",
         "model_loaded": True,
         "guides_configured": True,
-        "guides_curated": ["en"],
+        "guides_curated": sorted(path.stem for path in GUIDES_DIR.glob("*.json")),
     }
 
 

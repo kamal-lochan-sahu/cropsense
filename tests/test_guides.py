@@ -1,9 +1,19 @@
 import json
+from pathlib import Path
 
 import pytest
 import requests
 
 from app import create_app
+from app.services.guides import LANG_NAMES, load_curated
+
+# A language without curated content, so these tests keep exercising the Groq fallback.
+UNCURATED = next(
+    lang
+    for lang in LANG_NAMES
+    if lang
+    not in load_curated(Path(__file__).resolve().parent.parent / "app" / "content" / "guides")
+)
 
 GOOD_GUIDE = {
     "season": "June to August",
@@ -48,7 +58,7 @@ def groq(monkeypatch):
     return type("Groq", (), {"queue": queue, "calls": calls})
 
 
-def ask(client, crop="rice", lang="hi"):
+def ask(client, crop="rice", lang=UNCURATED):
     return client.post("/crop-guide", json={"crop": crop, "lang": lang})
 
 

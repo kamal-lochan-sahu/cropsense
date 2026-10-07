@@ -14,7 +14,7 @@ own language.
 - Top-3 suggestions with confidence bars, and a warning when inputs fall outside the range the model was trained on
 - Soil advice for the recommended crop: N, P, K and pH marked low / good / high against the crop's typical values, with fertilizer hints (computed locally from the training data, no external API)
 - Accessible form: visible labels, decimal input, inline per-field errors, clear error states
-- Growing guides (season, soil, water, fertilizer, pests, harvest, tip): curated content for every crop, shipped with the app (English now, more languages being added); languages without curated content fall back to AI generation via Groq
+- Growing guides (season, soil, water, fertilizer, pests, harvest, tip): curated content for every crop, shipped with the app (English, Hindi and Odia so far, more languages being added); languages without curated content fall back to AI generation via Groq
 - Multilingual UI in 21 languages with RTL support (Arabic): opens in English; the user can choose a language or follow their region (the region lookup only runs after tapping Auto)
 - Installable PWA: root-scope service worker with a versioned cache (no stale files after a deploy), real icons
 - Strict Content-Security-Policy; server and LLM text is never parsed as HTML
